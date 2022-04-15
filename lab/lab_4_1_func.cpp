@@ -1,13 +1,13 @@
-#include <iostream>// библиотека
+п»ї#include <iostream>// Р±РёР±Р»РёРѕС‚РµРєР°
 #include <iomanip>
-#include <Windows.h> // библиотека
+#include <Windows.h> // Р±РёР±Р»РёРѕС‚РµРєР°
 #include "various_functions.h"
 #include "lab_4_1_func.h"
 #include "string"
 #include "vector"
 
 
-using namespace std; //подключение пространства имен std
+using namespace std; //РїРѕРґРєР»СЋС‡РµРЅРёРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° РёРјРµРЅ std
 
 int find_time(unsigned int n, unsigned int size)
 {
@@ -35,7 +35,7 @@ int find_time(unsigned int n, unsigned int size)
 
         if (value.debugging == 0)
         {
-            cout << "исходная матрица:" << endl;
+            cout << "РёСЃС…РѕРґРЅР°СЏ РјР°С‚СЂРёС†Р°:" << endl;
             print_vector_two_dimensional(matrix);
         }
 
@@ -47,13 +47,13 @@ int find_time(unsigned int n, unsigned int size)
 
         if (value.debugging == 1)
         {
-            cout << "полученная матрица" << endl;
+            cout << "РїРѕР»СѓС‡РµРЅРЅР°СЏ РјР°С‚СЂРёС†Р°" << endl;
             print_vector_two_dimensional(matrix);
         }
 
         if (value.debugging == 1)
         {
-            cout << "ответ: " << endl;
+            cout << "РѕС‚РІРµС‚: " << endl;
             print_vector(matrix_x);
             
             for (int i = 0; i < 6; i++)
@@ -81,7 +81,7 @@ void calculation(vector <vector <long long>> &matrix)
             l = 1;
             if (value.debugging == 1)
             {
-                cout << "первый элемент равен нулю" << endl;
+                cout << "РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ СЂР°РІРµРЅ РЅСѓР»СЋ" << endl;
             }
             for (int i = k + 1; i < matrix.size(); i++)
             {
@@ -97,7 +97,7 @@ void calculation(vector <vector <long long>> &matrix)
                 {
                     final = 0;
                     if (value.debugging == 0)                    
-                        cout << "матрица вырожденная, значит имеет бесконечно много решений!" << endl;
+                        cout << "РјР°С‚СЂРёС†Р° РІС‹СЂРѕР¶РґРµРЅРЅР°СЏ, Р·РЅР°С‡РёС‚ РёРјРµРµС‚ Р±РµСЃРєРѕРЅРµС‡РЅРѕ РјРЅРѕРіРѕ СЂРµС€РµРЅРёР№!" << endl;
                         print_vector_two_dimensional(matrix);
                     break;
                     exit(0);
@@ -107,7 +107,7 @@ void calculation(vector <vector <long long>> &matrix)
                 {
                     if (value.debugging == 1)
                     {
-                        cout << "матрица после перестановки строк:" << endl;
+                        cout << "РјР°С‚СЂРёС†Р° РїРѕСЃР»Рµ РїРµСЂРµСЃС‚Р°РЅРѕРІРєРё СЃС‚СЂРѕРє:" << endl;
                         print_vector_two_dimensional(matrix);
                     }
                     break;
@@ -154,7 +154,7 @@ void calculation(vector <vector <long long>> &matrix)
             }
             if (value.debugging == 1)
             {
-                cout << "матрица после прохода " << i + 1 << " строки, " << k + 1 << " столбца; " << endl;
+                cout << "РјР°С‚СЂРёС†Р° РїРѕСЃР»Рµ РїСЂРѕС…РѕРґР° " << i + 1 << " СЃС‚СЂРѕРєРё, " << k + 1 << " СЃС‚РѕР»Р±С†Р°; " << endl;
 
                 print_vector_two_dimensional(matrix);
 

@@ -1,4 +1,4 @@
-#include <iostream>// библиотека
+п»ї#include <iostream>// Р±РёР±Р»РёРѕС‚РµРєР°
 #include <iomanip>
 #include <Windows.h> 
 #include "various_functions.h"
@@ -21,21 +21,21 @@ int input_value(int a);
 
 void lab_2_2()
 {
-    setlocale(0, ""); // поддержка кириллицы в консоли (вывод)
-    SetConsoleCP(1251); // поддержка кириллицы в консоли (ввод)
-    SetConsoleOutputCP(1251); // поддержка кириллицы в консоли (ввод)
+    setlocale(0, ""); // РїРѕРґРґРµСЂР¶РєР° РєРёСЂРёР»Р»РёС†С‹ РІ РєРѕРЅСЃРѕР»Рё (РІС‹РІРѕРґ)
+    SetConsoleCP(1251); // РїРѕРґРґРµСЂР¶РєР° РєРёСЂРёР»Р»РёС†С‹ РІ РєРѕРЅСЃРѕР»Рё (РІРІРѕРґ)
+    SetConsoleOutputCP(1251); // РїРѕРґРґРµСЂР¶РєР° РєРёСЂРёР»Р»РёС†С‹ РІ РєРѕРЅСЃРѕР»Рё (РІРІРѕРґ)
 
     vector <string> As;
-    in_vector(As);
+    in_vector(As);//РІРІРѕРґ РёСЃС…РѕРґРЅРѕРіРѕ РјР°СЃСЃРёРІР° СЃС‚СЂРѕРє
 
     string Is = input_Is();
-    As.push_back(Is);
+    As.push_back(Is);//РІРІРѕРґ СЃС‚СЂРѕРєРё
     
     vector <vector <int>> Hs(As.size(), vector <int> (2));
 
-    fill_Hs(Hs, As);
+    fill_Hs(Hs, As);//Р·Р°РїРѕР»РЅРµРЅРёРµ РјР°СЃСЃРёРІР° С…СЌС€РµР№
 
-    int hash_Is = Hs[Hs.size() - 1][0];
+    int hash_Is = Hs[Hs.size() - 1][0];//С…СЌС€ РІРІРµРґРµРЅРѕР№ СЃС‚СЂРѕРє РІ РєРѕРЅС†Рµ РјР°СЃСЃРёРІР° С…СЌС€РµР№
     cout << "Hash Is: " << hash_Is << endl;
     Hs.erase(Hs.begin() + Hs.size() - 1);
 
@@ -57,7 +57,7 @@ void sorting_bubble_two_dimensional_vectors(vector<vector<int>>& Hs)
 
 string input_Is()
 {
-    cout << "Введите строку Is: ";
+    cout << "Р’РІРµРґРёС‚Рµ СЃС‚СЂРѕРєСѓ Is: ";
     string Is;
     getline(cin, Is);
     //cin.ignore(1, '\n');
@@ -73,20 +73,20 @@ void print_Hs(vector<vector<int>>& Hs)
 
 int input_P()
 {
-    cout << "Введите P: ";
+    cout << "Р’РІРµРґРёС‚Рµ P: ";
     return input_value(10);
 }
 
 int input_M()
 {
-    cout << "Введите M: ";
+    cout << "Р’РІРµРґРёС‚Рµ M: ";
     return input_value(10001);
 }
 
 void in_vector(vector <string>& As)
 {
     srand(clock());
-    cout << "Введите длину массива: ";
+    cout << "Р’РІРµРґРёС‚Рµ РґР»РёРЅСѓ РјР°СЃСЃРёРІР°: ";
     int N;
     string str;
     getline(cin, str);
@@ -101,7 +101,7 @@ void in_vector(vector <string>& As)
             N = str_to_number<double>(str);
             if (N < 10)
             {
-                cout << "Количество должно быть больше 10, введите другую длину: ";
+                cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ 10, РІРІРµРґРёС‚Рµ РґСЂСѓРіСѓСЋ РґР»РёРЅСѓ: ";
                 getline(cin, str);
             }
             else 
@@ -112,7 +112,7 @@ void in_vector(vector <string>& As)
         }
     }
 
-    cout << "Длина массива = " << N << endl;
+    cout << "Р”Р»РёРЅР° РјР°СЃСЃРёРІР° = " << N << endl;
     int size_str;
     for (int i = 0; i < N; i++)
     {
@@ -134,10 +134,10 @@ void fill_Hs(vector<vector<int>>& Hs, vector<string> As)
 {
     unsigned long long H = 0;
     int P = input_P();
-    //cout << "Введите P: ";
+    //cout << "Р’РІРµРґРёС‚Рµ P: ";
     //int P = get_number_int();
     int M = input_M();
-    //cout << "Введите M: ";
+    //cout << "Р’РІРµРґРёС‚Рµ M: ";
     //int M = get_number_int();
     for (int i = 0; i < Hs.size(); i++)
     {

@@ -1,6 +1,6 @@
-#include <iostream>// библиотека
+п»ї#include <iostream>// Р±РёР±Р»РёРѕС‚РµРєР°
 #include <iomanip>
-#include <Windows.h> // библиотека
+#include <Windows.h> // Р±РёР±Р»РёРѕС‚РµРєР°
 #include "various_functions.h"
 #include "dop_task_1_functions.h"
 #include "string"
@@ -13,15 +13,15 @@ string bufer = "";
 struct max_values
 {    
 public:
-    // rival_max = максимальное количество соперников
-    // health_max = максимальное здоровье 
-    // health = здоровье персонажа
-    // time = время на которое соперник выводится из строя
+    // rival_max = РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕРїРµСЂРЅРёРєРѕРІ
+    // health_max = РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РґРѕСЂРѕРІСЊРµ 
+    // health = Р·РґРѕСЂРѕРІСЊРµ РїРµСЂСЃРѕРЅР°Р¶Р°
+    // time = РІСЂРµРјСЏ РЅР° РєРѕС‚РѕСЂРѕРµ СЃРѕРїРµСЂРЅРёРє РІС‹РІРѕРґРёС‚СЃСЏ РёР· СЃС‚СЂРѕСЏ
     // time_max 
-    // interval = интервал вывода из строя 
+    // interval = РёРЅС‚РµСЂРІР°Р» РІС‹РІРѕРґР° РёР· СЃС‚СЂРѕСЏ 
     // interval_max
-    // damage = количество наносимого им урона противнику в секунду.
-    // damage_max = макс. урон
+    // damage = РєРѕР»РёС‡РµСЃС‚РІРѕ РЅР°РЅРѕСЃРёРјРѕРіРѕ РёРј СѓСЂРѕРЅР° РїСЂРѕС‚РёРІРЅРёРєСѓ РІ СЃРµРєСѓРЅРґСѓ.
+    // damage_max = РјР°РєСЃ. СѓСЂРѕРЅ
     unsigned short const rival_max = 3;
     unsigned short damage_max;
     unsigned short health_max;
@@ -41,19 +41,19 @@ public:
 unsigned short in_count_people()
 {
     short n, n_max = 30;
-    cout << "Введите количество человек, не менее 10: ";
-    bufer += "Введите количество человек, не менее 10: ";
+    cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ С‡РµР»РѕРІРµРє, РЅРµ РјРµРЅРµРµ 10: ";
+    bufer += "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ С‡РµР»РѕРІРµРє, РЅРµ РјРµРЅРµРµ 10: ";
     while (true)
     {
         n = input_value(rand() % n_max + 10);
         if (n > 0)
             break;
         else
-            cout << "Количество человек не может быть <= 0, \nвведите положительное число: ";
-            bufer += "Количество человек не может быть <= 0, \nвведите положительное число: ";
+            cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ С‡РµР»РѕРІРµРє РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ <= 0, \nРІРІРµРґРёС‚Рµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ: ";
+            bufer += "РљРѕР»РёС‡РµСЃС‚РІРѕ С‡РµР»РѕРІРµРє РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ <= 0, \nРІРІРµРґРёС‚Рµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ: ";
     }
     
-    cout << "Количество человек =" << setw(count_char(n_max)) << n << endl;
+    cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ С‡РµР»РѕРІРµРє =" << setw(count_char(n_max)) << n << endl;
     //cin.ignore(1, '\n');
     return n;
 }
@@ -61,14 +61,14 @@ unsigned short in_count_people()
 string rang_my()
 {
     string parametr;
-    cout << "Ранжирование возможно по времени сражению (t) и по проценту оставшегося здоровья (%). \nВыберите вариант: ";
+    cout << "Р Р°РЅР¶РёСЂРѕРІР°РЅРёРµ РІРѕР·РјРѕР¶РЅРѕ РїРѕ РІСЂРµРјРµРЅРё СЃСЂР°Р¶РµРЅРёСЋ (t) Рё РїРѕ РїСЂРѕС†РµРЅС‚Сѓ РѕСЃС‚Р°РІС€РµРіРѕСЃСЏ Р·РґРѕСЂРѕРІСЊСЏ (%). \nР’С‹Р±РµСЂРёС‚Рµ РІР°СЂРёР°РЅС‚: ";
     while (true)
     {
         cin >> parametr;
         if (parametr == "t" || parametr == "%")
             break;
         else
-            cout << "Такого параметра нет, введите другой параметр: ";
+            cout << "РўР°РєРѕРіРѕ РїР°СЂР°РјРµС‚СЂР° РЅРµС‚, РІРІРµРґРёС‚Рµ РґСЂСѓРіРѕР№ РїР°СЂР°РјРµС‚СЂ: ";
     }
     return parametr;
 }
@@ -78,14 +78,14 @@ string rang_my()
 char in_task()
 {
     string ch;        
-    cout << "Введите букву варианта задания (А - 1x1, B - 3x3): ";
+    cout << "Р’РІРµРґРёС‚Рµ Р±СѓРєРІСѓ РІР°СЂРёР°РЅС‚Р° Р·Р°РґР°РЅРёСЏ (Рђ - 1x1, B - 3x3): ";
 
     while (true)
     {
         getline(cin, ch);
         if (ch == "A" || ch == "B")
             break;
-        else cout << "Такого варианта нет, введите другую букву: ";
+        else cout << "РўР°РєРѕРіРѕ РІР°СЂРёР°РЅС‚Р° РЅРµС‚, РІРІРµРґРёС‚Рµ РґСЂСѓРіСѓСЋ Р±СѓРєРІСѓ: ";
     }
     
     //cin.ignore(1,'\n');
@@ -132,13 +132,13 @@ unsigned short number_enemy_input(vector <Characters> characters)
 
 vector <Characters> in_team_enemy(vector <Characters> &characters)
 {
-    cout << "Введите номера персонажей из команды противника по одному. \n";
+    cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂР° РїРµСЂСЃРѕРЅР°Р¶РµР№ РёР· РєРѕРјР°РЅРґС‹ РїСЂРѕС‚РёРІРЅРёРєР° РїРѕ РѕРґРЅРѕРјСѓ. \n";
     string str, s;
     unsigned short a, i = 1;
     short in_vec;
     vector <Characters> team;
     boolean final = 1;
-    cout << "Введите номер " << i << " персонажа: ";
+    cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ " << i << " РїРµСЂСЃРѕРЅР°Р¶Р°: ";
     while (true)
     {
         
@@ -152,12 +152,12 @@ vector <Characters> in_team_enemy(vector <Characters> &characters)
             characters.erase(characters.begin() + in_vec);
             if (team.size() == 3)
                 break;
-            cout << "Введите номер " << i + 1 << " персонажа: ";
+            cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ " << i + 1 << " РїРµСЂСЃРѕРЅР°Р¶Р°: ";
             i++;
         }
         else
         {
-            cout << "Персонажа с таким номером нет \nвведите другое число: ";
+            cout << "РџРµСЂСЃРѕРЅР°Р¶Р° СЃ С‚Р°РєРёРј РЅРѕРјРµСЂРѕРј РЅРµС‚ \nРІРІРµРґРёС‚Рµ РґСЂСѓРіРѕРµ С‡РёСЃР»Рѕ: ";
         }
     }
     return team;
@@ -165,7 +165,7 @@ vector <Characters> in_team_enemy(vector <Characters> &characters)
 
 unsigned short in_character_number(unsigned short n)
 {
-    cout << "Выберите персонажа противника, напишите его номер: ";
+    cout << "Р’С‹Р±РµСЂРёС‚Рµ РїРµСЂСЃРѕРЅР°Р¶Р° РїСЂРѕС‚РёРІРЅРёРєР°, РЅР°РїРёС€РёС‚Рµ РµРіРѕ РЅРѕРјРµСЂ: ";
     unsigned short character_number;
 
     while (true)
@@ -174,13 +174,13 @@ unsigned short in_character_number(unsigned short n)
         if (character_number >= 0 && character_number <= n)
             break;
         else
-            cout << "Такого номера нет, введите другое число: ";
+            cout << "РўР°РєРѕРіРѕ РЅРѕРјРµСЂР° РЅРµС‚, РІРІРµРґРёС‚Рµ РґСЂСѓРіРѕРµ С‡РёСЃР»Рѕ: ";
     }
 
     cout
-        << "Номер персонажа =" << setw(count_char(n))
+        << "РќРѕРјРµСЂ РїРµСЂСЃРѕРЅР°Р¶Р° =" << setw(count_char(n))
         << character_number << endl
-        << "Его свойства: " << endl;
+        << "Р•РіРѕ СЃРІРѕР№СЃС‚РІР°: " << endl;
 
     character_number -= 1;
     return character_number;
@@ -242,9 +242,9 @@ void fill_vector(vector < Characters >& characters)
         character.damage = (rand() % (values.damage_max / 2)) * 2 + 2;
         character.rival = rand() % (values.rival_max) + 1;
         character.health =
-            (((values.health_max - values.damage_max * 2) / //уменьшаем диапазон 
-            values.damage_max) * (values.damage_max - character.damage)) + //умножнаем на разность макс урона и урона
-            // тем самым получается, что чем больше урон тем меньше здоровье, и наоборот
+            (((values.health_max - values.damage_max * 2) / //СѓРјРµРЅСЊС€Р°РµРј РґРёР°РїР°Р·РѕРЅ 
+            values.damage_max) * (values.damage_max - character.damage)) + //СѓРјРЅРѕР¶РЅР°РµРј РЅР° СЂР°Р·РЅРѕСЃС‚СЊ РјР°РєСЃ СѓСЂРѕРЅР° Рё СѓСЂРѕРЅР°
+            // С‚РµРј СЃР°РјС‹Рј РїРѕР»СѓС‡Р°РµС‚СЃСЏ, С‡С‚Рѕ С‡РµРј Р±РѕР»СЊС€Рµ СѓСЂРѕРЅ С‚РµРј РјРµРЅСЊС€Рµ Р·РґРѕСЂРѕРІСЊРµ, Рё РЅР°РѕР±РѕСЂРѕС‚
             rand() % values.damage_max - 1 + values.damage_max * 2;
         temp = rand() % values.time_max - values.time_max / 4;
         if (temp <= 0)
@@ -264,7 +264,7 @@ void fill_vector(vector < Characters >& characters)
 
 void print_enemy_team(vector < Characters > enemy_team)
 {
-    cout << "Команда противника: \n";
+    cout << "РљРѕРјР°РЅРґР° РїСЂРѕС‚РёРІРЅРёРєР°: \n";
     print_table(enemy_team);
 }
 

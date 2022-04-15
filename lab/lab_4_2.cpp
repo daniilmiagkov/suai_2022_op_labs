@@ -1,6 +1,6 @@
-#include <iostream>// библиотека
+п»ї#include <iostream>// Р±РёР±Р»РёРѕС‚РµРєР°
 #include <iomanip>
-#include <Windows.h> // библиотека
+#include <Windows.h> // Р±РёР±Р»РёРѕС‚РµРєР°
 #include "various_functions.h"
 #include "lab_4_2_functions.h"
 #include "main_header.h"
@@ -9,21 +9,21 @@
 #include <set>
 #include <iterator>
 
-using namespace std; //подключение пространства имен std
+using namespace std; //РїРѕРґРєР»СЋС‡РµРЅРёРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° РёРјРµРЅ std
 
 void lab_4_2()
 {
-    setlocale(0, ""); // поддержка кириллицы в консоли (вывод)
-    SetConsoleCP(1251); // поддержка кириллицы в консоли (ввод)
-    SetConsoleOutputCP(1251); // поддержка кириллицы в консоли (ввод)
+    setlocale(0, ""); // РїРѕРґРґРµСЂР¶РєР° РєРёСЂРёР»Р»РёС†С‹ РІ РєРѕРЅСЃРѕР»Рё (РІС‹РІРѕРґ)
+    SetConsoleCP(1251); // РїРѕРґРґРµСЂР¶РєР° РєРёСЂРёР»Р»РёС†С‹ РІ РєРѕРЅСЃРѕР»Рё (РІРІРѕРґ)
+    SetConsoleOutputCP(1251); // РїРѕРґРґРµСЂР¶РєР° РєРёСЂРёР»Р»РёС†С‹ РІ РєРѕРЅСЃРѕР»Рё (РІРІРѕРґ)
 
     srand(clock());
 
-    // N = количество претендетов 
-    // lS = количество навыков у претендента
-    // lS_max = максимальное количество навыков
-    // M_max = общее максимальное количество неповторяющихся навыков
-    // Z_max = бюджет
+    // N = РєРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРµС‚РµРЅРґРµС‚РѕРІ 
+    // lS = РєРѕР»РёС‡РµСЃС‚РІРѕ РЅР°РІС‹РєРѕРІ Сѓ РїСЂРµС‚РµРЅРґРµРЅС‚Р°
+    // lS_max = РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РЅР°РІС‹РєРѕРІ
+    // M_max = РѕР±С‰РµРµ РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РЅРµРїРѕРІС‚РѕСЂСЏСЋС‰РёС…СЃСЏ РЅР°РІС‹РєРѕРІ
+    // Z_max = Р±СЋРґР¶РµС‚
 
     Values value;
 
@@ -39,7 +39,7 @@ void lab_4_2()
 
     fill_pair(P, N, lS_max, Z_max);
     unsigned short l_void = sqrt(N) + 1;
-    cout << "Бюджет = " << setw(l_void) << Z_max << endl;
+    cout << "Р‘СЋРґР¶РµС‚ = " << setw(l_void) << Z_max << endl;
     print_three_vector(P, lS_max);
 
     
@@ -51,7 +51,7 @@ void lab_4_2()
         print_vector_pair(skills_and_salaries);
     
     cout << endl
-         << "кол-во сумм" << setw(l_void) << skills_and_salaries.size() << "; "
+         << "РєРѕР»-РІРѕ СЃСѓРјРј" << setw(l_void) << skills_and_salaries.size() << "; "
          << setw(l_void) << skills_and_salaries[find(skills_and_salaries, Z_max)].first
          << setw(l_void) << skills_and_salaries[find(skills_and_salaries, Z_max)].second;
 }

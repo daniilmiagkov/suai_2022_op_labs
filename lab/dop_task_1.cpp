@@ -1,6 +1,6 @@
-#include <iostream>// библиотека
+п»ї#include <iostream>// Р±РёР±Р»РёРѕС‚РµРєР°
 #include <iomanip>
-#include <Windows.h> // библиотека
+#include <Windows.h> // Р±РёР±Р»РёРѕС‚РµРєР°
 #include "various_functions.h"
 #include "main_header.h"
 #include "dop_task_1_functions.h"
@@ -9,42 +9,42 @@
 
 void dop_task_1()
 {
-    setlocale(0, ""); // поддержка кириллицы в консоли (вывод)
-    SetConsoleCP(1251); // поддержка кириллицы в консоли (ввод)
-    SetConsoleOutputCP(1251); // поддержка кириллицы в консоли (ввод)
+    setlocale(0, ""); // РїРѕРґРґРµСЂР¶РєР° РєРёСЂРёР»Р»РёС†С‹ РІ РєРѕРЅСЃРѕР»Рё (РІС‹РІРѕРґ)
+    SetConsoleCP(1251); // РїРѕРґРґРµСЂР¶РєР° РєРёСЂРёР»Р»РёС†С‹ РІ РєРѕРЅСЃРѕР»Рё (РІРІРѕРґ)
+    SetConsoleOutputCP(1251); // РїРѕРґРґРµСЂР¶РєР° РєРёСЂРёР»Р»РёС†С‹ РІ РєРѕРЅСЃРѕР»Рё (РІРІРѕРґ)
 
     srand(clock());
 
-    unsigned short n = in_count_people();// n = количество персонажей  
+    unsigned short n = in_count_people();// n = РєРѕР»РёС‡РµСЃС‚РІРѕ РїРµСЂСЃРѕРЅР°Р¶РµР№  
 
-    vector < Characters > characters(n); // массив персонажей
+    vector < Characters > characters(n); // РјР°СЃСЃРёРІ РїРµСЂСЃРѕРЅР°Р¶РµР№
 
     fill_vector(characters);
     print_max(n);
     print_table(characters);
 
-    //команда или один человек
+    //РєРѕРјР°РЅРґР° РёР»Рё РѕРґРёРЅ С‡РµР»РѕРІРµРє
     char task = in_task();
     if (task == 'A')
     {
-        cout << "Игра 1x1" << endl;
-        unsigned short character_number = in_character_number(n);//получение номера противника
-        Characters character_enemy = characters[character_number];//создание персонажа противника 
-        print_dash();//печать разграничительной строки
-        print_line(character_enemy);//печать свойств персонажа противника
-        print_enter(1);//перенос каретки 
-        characters.erase(characters.begin() + character_number);//удаление из массива персонажа противника
-        print_table(characters);//печать таблицы с нашими перснонажами 
+        cout << "РРіСЂР° 1x1" << endl;
+        unsigned short character_number = in_character_number(n);//РїРѕР»СѓС‡РµРЅРёРµ РЅРѕРјРµСЂР° РїСЂРѕС‚РёРІРЅРёРєР°
+        Characters character_enemy = characters[character_number];//СЃРѕР·РґР°РЅРёРµ РїРµСЂСЃРѕРЅР°Р¶Р° РїСЂРѕС‚РёРІРЅРёРєР° 
+        print_dash();//РїРµС‡Р°С‚СЊ СЂР°Р·РіСЂР°РЅРёС‡РёС‚РµР»СЊРЅРѕР№ СЃС‚СЂРѕРєРё
+        print_line(character_enemy);//РїРµС‡Р°С‚СЊ СЃРІРѕР№СЃС‚РІ РїРµСЂСЃРѕРЅР°Р¶Р° РїСЂРѕС‚РёРІРЅРёРєР°
+        print_enter(1);//РїРµСЂРµРЅРѕСЃ РєР°СЂРµС‚РєРё 
+        characters.erase(characters.begin() + character_number);//СѓРґР°Р»РµРЅРёРµ РёР· РјР°СЃСЃРёРІР° РїРµСЂСЃРѕРЅР°Р¶Р° РїСЂРѕС‚РёРІРЅРёРєР°
+        print_table(characters);//РїРµС‡Р°С‚СЊ С‚Р°Р±Р»РёС†С‹ СЃ РЅР°С€РёРјРё РїРµСЂСЃРЅРѕРЅР°Р¶Р°РјРё 
 
-        string parametr = rang_my();//получение параметра 
+        string parametr = rang_my();//РїРѕР»СѓС‡РµРЅРёРµ РїР°СЂР°РјРµС‚СЂР° 
 
-        find_winner(characters, character_enemy);//нахождение списка победителей
-        sort(characters, parametr);//сортировка списка
-        print_table(characters);//печать списка
+        find_winner(characters, character_enemy);//РЅР°С…РѕР¶РґРµРЅРёРµ СЃРїРёСЃРєР° РїРѕР±РµРґРёС‚РµР»РµР№
+        sort(characters, parametr);//СЃРѕСЂС‚РёСЂРѕРІРєР° СЃРїРёСЃРєР°
+        print_table(characters);//РїРµС‡Р°С‚СЊ СЃРїРёСЃРєР°
     }
     else
     {
-        cout << "Игра 3х3" << endl;
+        cout << "РРіСЂР° 3С…3" << endl;
         vector <Characters> enemy_team = in_team_enemy(characters);
         
         print_table(characters);
