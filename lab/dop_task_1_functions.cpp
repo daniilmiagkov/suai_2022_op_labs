@@ -10,6 +10,7 @@ using namespace std;
 
 string bufer = "";
 
+
 struct max_values
 {    
 public:
