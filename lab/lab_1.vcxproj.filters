@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="dop_task_1">
+      <UniqueIdentifier>{929c5b50-b3c1-43ad-b815-7278b475a685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="labs">
+      <UniqueIdentifier>{d241ad85-e88d-425c-a4e7-73b4cd97e810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="labs\lab_4_2">
+      <UniqueIdentifier>{3311659f-eba9-43b6-b530-eddfaa78d787}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lab_4_1">
+      <UniqueIdentifier>{6c6e27f4-318a-4014-a49e-f650024827b4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="various_functions.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="dop_task_1.cpp">
+      <Filter>dop_task_1</Filter>
+    </ClCompile>
+    <ClCompile Include="dop_task_1_functions.cpp">
+      <Filter>dop_task_1</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_1_1.cpp">
+      <Filter>labs</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_1_2.cpp">
+      <Filter>labs</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_1_3.cpp">
+      <Filter>labs</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_2_1.cpp">
+      <Filter>labs</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_2_2.cpp">
+      <Filter>labs</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_3_1.cpp">
+      <Filter>labs</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_5_1.cpp">
+      <Filter>labs</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_4_2.cpp">
+      <Filter>labs\lab_4_2</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_4_2_functions.cpp">
+      <Filter>labs\lab_4_2</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_4_1.cpp">
+      <Filter>lab_4_1</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_4_1_func.cpp">
+      <Filter>lab_4_1</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main_header.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="various_functions.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="dop_task_1_functions.h">
+      <Filter>dop_task_1</Filter>
+    </ClInclude>
+    <ClInclude Include="lab_4_2_functions.h">
+      <Filter>labs\lab_4_2</Filter>
+    </ClInclude>
+    <ClInclude Include="lab_4_1_func.h">
+      <Filter>lab_4_1</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
