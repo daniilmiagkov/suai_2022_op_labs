@@ -15,6 +15,8 @@ struct Values
 };
 int find(vector < pair < int, int> > P, int Z_max);
 
+void repetitions(int& count, int last, vector <int> b, vector < pair < int, int> >& skills_and_salaries, vector < pair < set <int>, int> > P);
+
 int in_count_ckills();
 
 int input_count_people();
@@ -24,11 +26,5 @@ void fill_pair(vector < pair < set <int>, int> >& P, unsigned short N, unsigned 
 void print_dash(int count);
 
 void print_three_vector(vector < pair < set <int>, int> > P, unsigned short lS_max);
-
-void push(int n, vector <int>& indexes, set <set<int>>& sets_indexes);
-
-void sochetaniya(int n, int size_a, set <set<int>>& sets_indexes, vector <int>& indexes);
-
-void calculation(set <set<int>>& sets_indexes, vector < pair < int, int> >& skills_and_salaries, vector < pair < set <int>, int> > P);
 
 void print_vector_pair(vector < pair < int, int> > skills_and_salaries);
