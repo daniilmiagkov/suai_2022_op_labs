@@ -5,7 +5,10 @@
 #include "string"
 #include "vector"
 
-using namespace std;
+using std::string;
+using std::cout;
+using std::cin;
+using std::vector;
 
 struct Values
 {

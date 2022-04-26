@@ -89,5 +89,11 @@
     <ClInclude Include="lab_4_1_func.h">
       <Filter>lab_4_1</Filter>
     </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>dop_task_1</Filter>
+    </ClInclude>
+    <ClInclude Include="Team.h">
+      <Filter>dop_task_1</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

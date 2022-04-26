@@ -27,7 +27,7 @@ void lab_4_2()
 
     Values value;
 
-    unsigned short N = in_count_people();
+    unsigned short N = input_count_people();
     unsigned short lS_max = in_count_ckills();
 
     unsigned short Z_max = N * (lS_max * 10)  + rand() % 10;

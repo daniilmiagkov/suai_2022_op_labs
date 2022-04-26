@@ -1,9 +1,14 @@
 #pragma once
 #include <string>
-using namespace std;
+using std::string;
+using std::cout;
+using std::cin;
+
 double get_number_double();
 int get_number_int();
 int get_number_int_without_input(std::string str);
+boolean check_int(string str);
+boolean check_double(string str);
 
 int input_value(int a);
 
@@ -80,7 +85,7 @@ T** erase_two_dimensional(int index, int& length, T** array)
 }
 
 template <typename T>
-void swap_notstd(T& a, T& b)
+void swap(T& a, T& b)
 {
     T temp = a;
     a = b;
@@ -92,7 +97,7 @@ void sorting(int& length, T*& array)
 {
     for (int i = 1; i < length; i++)
         for (int j = i; j > 0 && array[j - 1] > array[j]; j--)
-            swap_notstd(array[j - 1], array[j]);
+            swap(array[j - 1], array[j]);
 }
 
 template <typename T>
@@ -101,7 +106,7 @@ void sorting_two_dimensional(int& length, T**& array)
     unsigned long long* temp = new unsigned long long[2];
     for (int i = 1; i < length; i++)
         for (int j = i; j > 0 && array[j - 1][0] > array[j][0]; j--)
-            swap_notstd(array[j - 1], array[j]);
+            swap(array[j - 1], array[j]);
 }
 /*
 template <typename T>

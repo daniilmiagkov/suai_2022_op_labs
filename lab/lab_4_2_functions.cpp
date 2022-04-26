@@ -36,7 +36,7 @@ int in_count_ckills()
     return lS_max;
 }
 
-int in_count_people()
+int input_count_people()
 {
     cout << "Введите количество человек: ";
     unsigned short N = input_value(rand() % 8 + 4);

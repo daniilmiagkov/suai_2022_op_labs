@@ -7,7 +7,16 @@
 #include "vector"
 
 
-using namespace std; //подключение пространства имен std
+using std::string;
+using std::cout;
+using std::cin;
+using std::vector;
+using std::pair;
+using std::setw;
+using std::make_pair;
+using std::endl;
+using std::fixed;
+using std::setprecision; //подключение пространства имен std
 
 int find_time(unsigned int n, unsigned int size)
 {
@@ -88,7 +97,7 @@ void calculation(vector <vector <long long>> &matrix)
                 for (int j = k; j < matrix[i].size(); j++)
                 {
                     if (matrix[i][j] != 0)
-                        swap_notstd(matrix[k][j], matrix[i][j]);
+                        swap(matrix[k][j], matrix[i][j]);
                     else
                         l++;
                 }

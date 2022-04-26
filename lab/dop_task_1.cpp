@@ -6,6 +6,14 @@
 #include "dop_task_1_functions.h"
 #include "string"
 #include "vector"
+#include "Character.h"
+#include "Team.h"
+
+using std::string;
+using std::cout;
+using std::cin;
+using std::vector;
+using std::pair;
 
 void dop_task_1()
 {
@@ -14,41 +22,56 @@ void dop_task_1()
     SetConsoleOutputCP(1251); // поддержка кириллицы в консоли (ввод)
 
     srand(clock());
+    pair <int, int> x_y;//пара координатов курсора
 
-    unsigned short n = in_count_people();// n = количество персонажей  
+    
+    unsigned short n = input_count_people();// n = количество персонажей  
+    
 
-    vector < Characters > characters(n); // массив персонажей
+    vector < Character > characters(n); // массив персонажей
 
-    fill_vector(characters);
-    print_max(n);
+    Character max_values = fill_max(n);
+    fill_vector(characters, max_values);
+    print_max(max_values);
     print_table(characters);
 
     //команда или один человек
-    char task = in_task();
+    x_y = cursor_position();
+    char task = input_task();
+    
     if (task == 'A')
     {
+        erase_past_output(x_y);
         cout << "Игра 1x1" << endl;
-        unsigned short character_number = in_character_number(n);//получение номера противника
-        Characters character_enemy = characters[character_number];//создание персонажа противника 
+        
+        unsigned short character_number = input_character_number(n);//получение номера противника
+        Character character_enemy = characters[character_number];//создание персонажа противника 
+        print_title();
         print_dash();//печать разграничительной строки
         print_line(character_enemy);//печать свойств персонажа противника
         print_enter(1);//перенос каретки 
         characters.erase(characters.begin() + character_number);//удаление из массива персонажа противника
+        cout << "\nПерсонажи с которыми он будет биться: \n";
         print_table(characters);//печать таблицы с нашими перснонажами 
-
-        string parametr = rang_my();//получение параметра 
-
-        find_winner(characters, character_enemy);//нахождение списка победителей
-        sort(characters, parametr);//сортировка списка
+        find_winner_solo(characters, character_enemy);//нахождение списка победителей
+        
+        rang(characters);//сортировка списка
         print_table(characters);//печать списка
     }
     else
     {
+        erase_past_output(x_y);
         cout << "Игра 3х3" << endl;
-        vector <Characters> enemy_team = in_team_enemy(characters);
         
+        vector <Character> enemy_team = input_team_enemy(characters, x_y);
+        
+        print_enemy_team(enemy_team, x_y);
         print_table(characters);
-
+        vector <Character> team;
+        vector <vector < Character >> teams;
+        combinations(0, team, teams, characters);
+        //print_teams(teams);
+        find_winner_team(teams, enemy_team);
         
     }
     

@@ -5,80 +5,83 @@
 #include "dop_task_1_functions.h"
 #include "string"
 #include "vector"
+#include "Character.h"
+#include "Team.h"
 
-using namespace std;
 
-string bufer = "";
 
-struct max_values
-{    
-public:
-    // rival_max = максимальное количество соперников
-    // health_max = максимальное здоровье 
-    // health = здоровье персонажа
-    // time = время на которое соперник выводится из строя
-    // time_max 
-    // interval = интервал вывода из строя 
-    // interval_max
-    // damage = количество наносимого им урона противнику в секунду.
-    // damage_max = макс. урон
-    unsigned short const rival_max = 3;
-    unsigned short damage_max;
-    unsigned short health_max;
-    unsigned short time_max;
-    unsigned short interval_max;
-    void values(unsigned short n)
-    {
-        damage_max = 4 * ((n / 2) + (n / 5)) + rand() % n;
-        health_max = (rand() % 2 + n * 8) * damage_max + rand() % n;
-        time_max = health_max / n / 8;
-        interval_max = time_max * 2;
-    }
-
-    byte array_of_sizes[3] = { 4,11,7 };
-};
-
-unsigned short in_count_people()
+unsigned short input_count_people()
 {
-    short n, n_max = 30;
-    cout << "Введите количество человек, не менее 10: ";
-    bufer += "Введите количество человек, не менее 10: ";
+    
+    short n = 10, n_max = 30;
+    /*cout << "Введите количество человек, не менее 10: ";
     while (true)
     {
         n = input_value(rand() % n_max + 10);
-        if (n > 0)
+        if (n >= 10)
             break;
         else
-            cout << "Количество человек не может быть <= 0, \nвведите положительное число: ";
-            bufer += "Количество человек не может быть <= 0, \nвведите положительное число: ";
+            cout << "Количество человек не может быть < 10, \nвведите другое число: ";
     }
-    
+    erase_past_output(make_pair(0,0));*/
     cout << "Количество человек =" << setw(count_char(n_max)) << n << endl;
-    //cin.ignore(1, '\n');
     return n;
 }
 
-string rang_my()
+void rang(vector < Character >& characters)
 {
     string parametr;
+    char par = ' ';
+    pair <int, int> x_y = cursor_position();
     cout << "Ранжирование возможно по времени сражению (t) и по проценту оставшегося здоровья (%). \nВыберите вариант: ";
     while (true)
     {
         cin >> parametr;
         if (parametr == "t" || parametr == "%")
+        {
+            par = parametr[0];
             break;
+        }
         else
             cout << "Такого параметра нет, введите другой параметр: ";
     }
-    return parametr;
+    erase_past_output(x_y);
+    sort(characters, characters, par);
 }
 
-
-
-char in_task()
+void set_cursor_position(int x, int y)
 {
-    string ch;        
-    cout << "Введите букву варианта задания (А - 1x1, B - 3x3): ";
+    COORD coord;
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+pair <int, int> cursor_position()
+{
+    CONSOLE_SCREEN_BUFFER_INFO bi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bi);
+    return make_pair(bi.dwCursorPosition.X, bi.dwCursorPosition.Y);
+}
+
+void erase_past_output(pair <int,int> x_y)
+{
+    CONSOLE_SCREEN_BUFFER_INFO bi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bi);
+    set_cursor_position(x_y.first, x_y.second);
+    string s = "";
+    for (int i = 0; i < 80; i++)
+        s += " ";
+    for (int i = 0; i < bi.dwCursorPosition.Y - x_y.second; i++)
+        cout << s << endl;
+
+    set_cursor_position(x_y.first, x_y.second);
+}
+
+char input_task()
+{
+    string ch = "B";
+    /*cout << "Введите букву варианта задания (А - 1x1, B - 3x3): ";
 
     while (true)
     {
@@ -89,11 +92,11 @@ char in_task()
     }
     
     //cin.ignore(1,'\n');
-
+    */
     return ch[0];
 }
 
-short find_vec(vector <Characters> characters, unsigned short temp)
+short find_vec(vector <Character> characters, unsigned short temp)
 {
     short f = -1;
     for (int i = 0; i < characters.size(); i++)
@@ -107,7 +110,7 @@ short find_vec(vector <Characters> characters, unsigned short temp)
     return f;
 }
 
-unsigned short number_enemy_input(vector <Characters> characters)
+unsigned short input_number_enemy(vector <Character> characters)
 {
     unsigned short n;
     boolean final;
@@ -130,20 +133,21 @@ unsigned short number_enemy_input(vector <Characters> characters)
     return n;
 }
 
-vector <Characters> in_team_enemy(vector <Characters> &characters)
+vector <Character> input_team_enemy(vector <Character>& characters,pair <int,int>& x_y)
 {
+    CONSOLE_SCREEN_BUFFER_INFO bi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bi);
+    x_y = { bi.dwCursorPosition.X, bi.dwCursorPosition.Y };
     cout << "Введите номера персонажей из команды противника по одному. \n";
     string str, s;
     unsigned short a, i = 1;
     short in_vec;
-    vector <Characters> team;
+    vector <Character> team;
     boolean final = 1;
     cout << "Введите номер " << i << " персонажа: ";
     while (true)
     {
-        
-        
-        a = input_value(number_enemy_input(characters));
+        a = input_value(input_number_enemy(characters));
 
         in_vec = find_vec(characters, a);
         if (in_vec != -1)
@@ -163,11 +167,12 @@ vector <Characters> in_team_enemy(vector <Characters> &characters)
     return team;
 }
 
-unsigned short in_character_number(unsigned short n)
+unsigned short input_character_number(unsigned short n)
 {
+    pair <int, int> x_y = cursor_position();
     cout << "Выберите персонажа противника, напишите его номер: ";
     unsigned short character_number;
-
+    
     while (true)
     {
         character_number = input_value(rand() % n + 1);
@@ -176,7 +181,7 @@ unsigned short in_character_number(unsigned short n)
         else
             cout << "Такого номера нет, введите другое число: ";
     }
-
+    erase_past_output(x_y);
     cout
         << "Номер персонажа =" << setw(count_char(n))
         << character_number << endl
@@ -203,50 +208,138 @@ void print_enter(unsigned short n)
         cout << endl;
 }
 
-void sort(vector < Characters >& characters, string parametr)
+void sort(vector < Character >& characters_1, vector < Character >& characters_2, char parametr)
 {
-    if (parametr == "t")
+        switch (parametr)
+        {
+        case ('d'):
+            for (int i = 0; i < characters_1.size(); i++)
+            {
+                for (int j = 0; j < characters_1.size(); j++)
+                {
+                    if (characters_1[j].damage < characters_1[i].damage)
+                    {
+                        swap(characters_1[j], characters_1[i]);
+                        swap(characters_2[j], characters_2[i]);
+                    }
+                }
+            }
+            break;
+        case ('h'):
+            for (int i = 0; i < characters_1.size(); i++)
+            {
+                for (int j = 0; j < characters_1.size(); j++)
+                {
+                    if (characters_1[j].health < characters_1[i].health)
+                    {
+                        swap(characters_1[j], characters_1[i]);
+                        swap(characters_2[j], characters_2[i]);
+                    }
+                }
+            }
+            break;
+        
+        }
+}
+
+void sort(vector < Character >& characters, char parametr)
+{
+    switch (parametr)
     {
+    case ('t'):
+        cout << "Ранжирование по времени: \n";
         for (int i = 0; i < characters.size(); i++)
         {
             for (int j = 0; j < characters.size(); j++)
             {
                 if (characters[j].time_fight > characters[i].time_fight)
-                    swap_notstd(characters[j], characters[i]);
+                    swap(characters[j], characters[i]);
             }
         }
-    }
-    else
-    {
+        break;
+    case ('%'):
+        cout << "Ранжирование по проценту оставшегося здоровья: \n";
         for (int i = 0; i < characters.size(); i++)
         {
             for (int j = 0; j < characters.size(); j++)
             {
                 if (characters[j].percent < characters[i].percent)
-                    swap_notstd(characters[j], characters[i]);
+                    swap(characters[j], characters[i]);
             }
         }
+        break;
+    case ('#'):
+        for (int i = 0; i < characters.size(); i++)
+        {
+            for (int j = 0; j < characters.size(); j++)
+            {
+                if (characters[j].number > characters[i].number)
+                    swap(characters[j], characters[i]);
+            }
+        }
+        break;
+    case ('d'):
+        for (int i = 0; i < characters.size(); i++)
+        {
+            for (int j = 0; j < characters.size(); j++)
+            {
+                if (characters[j].damage < characters[i].damage)
+                    swap(characters[j], characters[i]);
+            }
+        }
+        break;
+    case ('h'):
+        for (int i = 0; i < characters.size(); i++)
+        {
+            for (int j = 0; j < characters.size(); j++)
+            {
+                if (characters[j].health < characters[i].health)
+                    swap(characters[j], characters[i]);
+            }
+        }
+        break;
     }
 }
 
-void fill_vector(vector < Characters >& characters)
+Character fill_max(unsigned short n)
 {
-    max_values values;
-    values.values(characters.size());
+    Character max_values;
+    // rival_max = максимальное количество соперников
+    // health_max = максимальное здоровье  
+    // time_max 
+    // interval_max
+    // damage_max = макс. урон
+    unsigned short rival_max, damage_max, health_max, time_max, interval_max;
+    rival_max = 3;
+    damage_max = 4 * ((n / 2) + (n / 5)) + rand() % n;
+    health_max = (rand() % 2 + n * 8) * damage_max + rand() % n;
+    time_max = health_max / n / 8;
+    interval_max = time_max * 2;
+    max_values.rival = rival_max;
+    max_values.damage = damage_max;
+    max_values.health = health_max;
+    max_values.time = time_max;
+    max_values.interval = interval_max;
+
+    return max_values;
+}
+
+void fill_vector(vector < Character >& characters, Character max_values)
+{
     for (int i = 0; i < characters.size(); i++)
     {
-        Characters character;
+        Character character;
         short temp;
         
         character.number = i + 1;
-        character.damage = (rand() % (values.damage_max / 2)) * 2 + 2;
-        character.rival = rand() % (values.rival_max) + 1;
+        character.damage = (rand() % (max_values.damage) + 1);
+        character.rival = rand() % (max_values.rival) + 1;
         character.health =
-            (((values.health_max - values.damage_max * 2) / //уменьшаем диапазон 
-            values.damage_max) * (values.damage_max - character.damage)) + //умножнаем на разность макс урона и урона
+            (((max_values.health - max_values.damage * 2) / //уменьшаем диапазон 
+            max_values.damage) * (max_values.damage - character.damage)) + //умножнаем на разность макс урона и урона
             // тем самым получается, что чем больше урон тем меньше здоровье, и наоборот
-            rand() % values.damage_max - 1 + values.damage_max * 2;
-        temp = rand() % values.time_max - values.time_max / 4;
+            rand() % max_values.damage - 1 + max_values.damage * 2;
+        temp = rand() % max_values.time - max_values.time / 4;
         if (temp <= 0)
         {
             character.time = 0;
@@ -255,93 +348,134 @@ void fill_vector(vector < Characters >& characters)
         else
         {
             character.time = temp;
-            character.interval = character.time * 2 + rand() % values.time_max / 4;
+            character.interval = character.time * 2 + rand() % max_values.time / 4;
         }
 
         characters[i] = character;
     }
 }
 
-void print_enemy_team(vector < Characters > enemy_team)
+void print_enemy_team(vector < Character > enemy_team, pair <int, int> x_y)
 {
-    cout << "Команда противника: \n";
+    
+    erase_past_output(x_y);
+    cout << "Команда противника: " << endl;
+    sort(enemy_team, '#');
     print_table(enemy_team);
 }
 
 void print_dash()
 {
-    max_values values;
+    Character values;
     cout << '|';
-    for (int j = 0; j < values.array_of_sizes[0]; j++)
+    for (int j = 0; j < values.number_text; j++)
     {
         cout << '-';
     }
 
-    for (int j = 0; j < values.array_of_sizes[2]; j++)
+    cout << '|';
+    for (int i = 0; i < values.damage_text; i++)
     {
-        cout << '|';
-        for (int i = 0; i < values.array_of_sizes[1]; i++)
-        {
-            cout << '-';
-        }
+        cout << '-';
+    }
+    
+    cout << '|';
+    for (int i = 0; i < values.rival_text; i++)
+    {
+        cout << '-';
+    }
+
+    cout << '|';
+    for (int i = 0; i < values.health_text; i++)
+    {
+        cout << '-';
+    }
+
+    cout << '|';
+    for (int i = 0; i < values.time_text; i++)
+    {
+        cout << '-';
+    }
+    
+    cout << '|';
+    for (int i = 0; i < values.interval_text; i++)
+    {
+        cout << '-';
+    }
+
+    cout << '|';
+    for (int i = 0; i < values.time_fight_text; i++)
+    {
+        cout << '-';
+    }
+
+    cout << '|';
+    for (int i = 0; i < values.percent_text; i++)
+    {
+        cout << '-';
     }
     cout << '|';
     cout << endl;
 }
 
-void print_max(unsigned short n)
+void print_max(Character max_values)
 {
 
     print_dash();
-    max_values values;
-    values.values(n);
+
     cout
-        << '|' << setw(values.array_of_sizes[0]) << "max" << '|'
-        << setw(values.array_of_sizes[1]) << values.damage_max << '|'
-        << setw(values.array_of_sizes[1]) << values.rival_max << '|'
-        << setw(values.array_of_sizes[1]) << values.health_max << '|'
-        << setw(values.array_of_sizes[1]) << values.time_max << '|'
-        << setw(values.array_of_sizes[1]) << values.interval_max << '|'
-        << setw(values.array_of_sizes[1] + 1) << '|'
-        << setw(values.array_of_sizes[1] + 1) << '|';
+        << '|'
+        << setw(max_values.number_text) << "max" << '|'
+        << setw(max_values.damage_text) << max_values.damage << '|'
+        << setw(max_values.rival_text) << max_values.rival << '|'
+        << setw(max_values.health_text) << max_values.health << '|'
+        << setw(max_values.time_text) << max_values.time << '|'
+        << setw(max_values.interval_text) << max_values.interval << '|'
+        << setw(max_values.time_fight_text) << ' ' << '|'
+        << setw(max_values.percent_text) << ' ' << '|';
     print_enter(1);
 }
 
-void print_line(Characters character)
+void print_line(Character character)
 {
-    max_values values;
-
     cout
-        << '|' << setw(values.array_of_sizes[0]) << character.number << '|'
-        << setw(values.array_of_sizes[1]) << character.damage << '|'
-        << setw(values.array_of_sizes[1]) << character.rival << '|'
-        << setw(values.array_of_sizes[1]) << character.health << '|'
-        << setw(values.array_of_sizes[1]) << character.time << '|'
-        << setw(values.array_of_sizes[1]) << character.interval << '|'
-        << setw(values.array_of_sizes[1]) << character.time_fight << '|'
-        << setw(values.array_of_sizes[1]) << fixed << setprecision(4) << character.percent << '|';
+        << '|'
+        << setw(character.number_text) << character.number << '|'
+        << setw(character.damage_text) << character.damage << '|'
+        << setw(character.rival_text) << character.rival << '|'
+        << setw(character.health_text) << character.health << '|'
+        << setw(character.time_text) << character.time << '|'
+        << setw(character.interval_text) << character.interval << '|'
+        << setw(character.time_fight_text) << character.time_fight << '|'
+        << setw(character.percent_text) << fixed << setprecision(0) << character.percent * 100 << '|';
 
     print_enter(1);
     print_dash();
 }
 
-void print_table(vector < Characters > characters)
+void print_title()
 {
-    max_values values;
+    Character character;
     print_dash();
 
     cout
-        << '|' << setw(values.array_of_sizes[0]) << '#' << '|'
-        << setw(values.array_of_sizes[1]) << "damage" << '|'
-        << setw(values.array_of_sizes[1]) << "rival" << '|'
-        << setw(values.array_of_sizes[1]) << "health" << '|'
-        << setw(values.array_of_sizes[1]) << "time" << '|'
-        << setw(values.array_of_sizes[1]) << "interval" << '|'
-        << setw(values.array_of_sizes[1]) << "time fight" << '|'
-        << setw(values.array_of_sizes[1]) << "percent" << '|'
+        << '|' 
+        << setw(character.number_text) << '#' << '|'
+        << setw(character.damage_text) << "damage" << '|'
+        << setw(character.rival_text) << "rival" << '|'
+        << setw(character.health_text) << "health" << '|'
+        << setw(character.time_text) << "time" << '|'
+        << setw(character.interval_text) << "interval" << '|'
+        << setw(character.time_fight_text) << "time fight(t)" << '|'
+        << setw(character.percent_text) << "percent(%)" << '|'
         ;
 
     print_enter(1);
+}
+
+void print_table(vector < Character > characters)
+{
+    print_title();
     print_dash();
 
     for (int i = 0; i < characters.size(); i++)
@@ -351,14 +485,14 @@ void print_table(vector < Characters > characters)
     print_enter(1);
 }
 
-void find_winner(vector < Characters >& P, Characters character_enemy)
+void find_winner_solo(vector < Character >& characters, Character character_enemy)
 {
     int time;
-    Characters character_enemy_fantom, character_fantom;
-    for (int i = 0; i < P.size(); i++)
+    Character character_enemy_fantom, character_fantom;
+    for (int i = 0; i < characters.size(); i++)
     {
         time = 0;
-        character_enemy_fantom = character_enemy, character_fantom = P[i];
+        character_enemy_fantom = character_enemy, character_fantom = characters[i];
 
         while (
             character_fantom.health - character_enemy_fantom.damage > 0 &&
@@ -366,22 +500,22 @@ void find_winner(vector < Characters >& P, Characters character_enemy)
         {
             time++;
 
-            if (P[i].time > 0)
+            if (characters[i].time > 0)
             {
                 if (character_fantom.interval == character_fantom.time)
                 {
-                    character_fantom.time = P[i].time;
+                    character_fantom.time = characters[i].time;
                 }
                 if (character_fantom.time > 0)
                 {
                     character_fantom.time--;
-                    character_enemy_fantom.in_ranks = 0;
+                    character_enemy_fantom.disable = 0;
                     character_enemy_fantom.damage = 0;
-                    character_fantom.interval = P[i].interval;
+                    character_fantom.interval = characters[i].interval;
                 }
                 else
                 {
-                    character_enemy_fantom.in_ranks = 1;
+                    character_enemy_fantom.disable = 1;
                     character_enemy_fantom.damage = character_enemy.damage;
                     character_fantom.interval--;
                 }
@@ -396,21 +530,21 @@ void find_winner(vector < Characters >& P, Characters character_enemy)
                 if (character_enemy_fantom.time > 0)
                 {
                     character_enemy_fantom.time--;
-                    character_fantom.in_ranks = 0;
+                    character_fantom.disable = 0;
                     character_fantom.damage = 0;
                     character_enemy_fantom.interval = character_enemy.interval;
                 }
                 else
                 {
-                    character_fantom.in_ranks = 1;
-                    character_fantom.damage = P[i].damage;
+                    character_fantom.disable = 1;
+                    character_fantom.damage = characters[i].damage;
                     character_enemy_fantom.interval--;
                 }
 
             }
             //cout << "time = " << setw(5) << time << endl;
 
-            P[i].time_fight = time;
+            characters[i].time_fight = time;
             character_fantom.time_fight = time;
             //P[i].health -= character_enemy_fantom.damage;
             character_fantom.health -= character_enemy_fantom.damage;
@@ -423,13 +557,331 @@ void find_winner(vector < Characters >& P, Characters character_enemy)
         if (character_fantom.health - character_enemy_fantom.damage <= 0)
         {
 
-            P.erase(P.begin() + i);
+            characters.erase(characters.begin() + i);
             i--;
         }
         else
         {
-            P[i].percent = static_cast<double>(character_fantom.health) / P[i].health;
-            P[i].health = character_fantom.health;
+            characters[i].percent = static_cast<double>(character_fantom.health) / characters[i].health;
+            characters[i].health = character_fantom.health;
         }
     }
+}
+
+void combinations(int last, vector < Character >& team, vector <vector < Character >>& teams, vector < Character >& characters)
+{
+    if (team.size() == 3)
+    {
+        teams.push_back(team);
+    }
+    for (int index = last + 1; index <= characters.size(); index++)
+    {
+        team.push_back(characters[index - 1]);
+        combinations(index, team, teams, characters);
+        team.pop_back();
+    }
+}
+
+void print_all_teams(vector <vector < Character >>& teams)
+{
+    for (int i = 0; i < teams.size(); i++)
+    {
+        print_table(teams[i]);
+    }
+}
+
+unsigned short find_max_in_vector(vector < Character > characters)
+{
+    unsigned short max_index = 0;
+    for (int i = 0; i < characters.size(); i++)
+    {
+        if (characters[i].damage > max_index)
+            max_index = i;
+    }
+    return max_index;
+}
+
+bool all_equal_to_zero(vector < Character >& team)
+{
+    bool temp = 1;
+    for (int k = 0; k < team.size(); k++)
+    {
+        if (team[k].damage != 0)
+        {
+            temp = 0;
+            break;
+        }
+    }
+    return temp;
+}
+
+bool print_or_not_print()
+{
+    int a;
+    pair <int, int> x_y = cursor_position();
+    cout << "Введите 1, если печатать, и 0, если нет: ";
+    while (true)
+    {
+        a = input_value(0);
+        if (a == 0)
+        {
+            erase_past_output(x_y);
+            cout << "Вы выбрали не печатать\n";
+            return a;
+        } 
+        else if (a == 1)
+        {
+            erase_past_output(x_y);
+            cout << "Вы выбрали печатать\n";
+            return a;
+        }
+        else
+            cout << "Вы ввели не 0 и не 1, введите 0 или 1: ";
+    }
+}
+
+void find_winner_team(vector <vector < Character >>& teams, vector < Character >& team_enemy)
+{
+    int time;
+     
+    //Team team_fantom, team_enemy_fantom;
+    vector < Character > 
+        team_fantom, 
+        team_fantom_enemy, 
+        team_fantom_intermediate,
+        team_fantom_enemy_intermediate,
+        team_fantom_const,
+        team_fantom_enemy_const;
+    bool p_o_n_p = print_or_not_print();
+    for (int i = 0; i < teams.size(); i++)
+    {
+        time = 0;
+        team_fantom = teams[i];
+        team_fantom_enemy = team_enemy;
+        team_fantom_const = teams[i];
+        team_fantom_enemy_const = team_enemy;
+        team_fantom_intermediate = teams[i];
+        team_fantom_enemy_intermediate = team_enemy;
+        
+        while (true)
+        {
+            time++;
+
+
+            if (p_o_n_p == 1)
+            {
+                cout << "time =" << setw(3) << time << endl;
+                print_teams(team_fantom, team_fantom_enemy);
+            }
+
+            
+            for (int j = 0; j < team_fantom.size(); j++) //перебираем всех в нашей команде
+            {   
+                if (all_equal_to_zero(team_fantom_enemy))
+                {
+                    sort(team_fantom_enemy_const,team_fantom_enemy, 'd');
+                }
+                else
+                {
+                    sort(team_fantom_enemy, team_fantom_enemy_const, 'd');
+                }
+
+                if (team_fantom_const[j].time > 0)
+                {
+                    if (team_fantom[j].interval == team_fantom[j].time)
+                    {
+                        team_fantom[j].time = team_fantom_const[j].time;
+                        team_fantom[j].disable = 1;
+                    }
+                    
+                    if (team_fantom[j].time > 0 && 
+                        team_fantom[j].disable == 1)
+                    {
+                        team_fantom[j].disable = 1;
+                        for (int k = 0; k < team_fantom[j].rival; k++)
+                        {
+                            if (k == team_fantom_enemy.size())
+                                break;
+                            team_fantom_enemy[k].damage = 0;
+                            //team_enemy_fantom[find_max_in_vector(team_enemy_fantom)].damage = 0;
+                        }
+                        team_fantom[j].interval = team_fantom_const[j].interval;
+                    }
+                    if (team_fantom[j].disable == 1)
+                    {
+                        team_fantom[j].time--;
+                    }
+                    if (team_fantom[j].time == 0)
+                    {
+                        team_fantom[j].disable = 0;
+                        for (int k = 0; k < team_fantom[j].rival; k++)
+                        {
+                            if (k == team_fantom_enemy.size())
+                                break;
+                            team_fantom_enemy[k].damage = team_fantom_enemy_const[k].damage;
+                        }
+                        team_fantom[j].interval--;
+                    }
+                }
+                
+                if (p_o_n_p == 1)
+                {
+                    cout << "наш " << j + 1 << endl;
+                    print_table(team_fantom);
+                    cout << "не наши" << endl;
+                    print_table(team_fantom_enemy);
+                }
+                
+
+                
+            }
+            if (p_o_n_p == 1)
+                print_teams(team_fantom, team_fantom_enemy);
+
+            for (int j = 0; j < team_fantom_enemy.size(); j++) //перебираем всех в нашей команде
+            {
+                if (all_equal_to_zero(team_fantom))
+                {
+                    sort(team_fantom_const, team_fantom, 'd');
+                }
+                else
+                {
+                    sort(team_fantom, team_fantom_const, 'd');
+                }
+
+                if (team_fantom_enemy_const[j].time > 0)
+                {
+                    if (team_fantom_enemy[j].interval == team_fantom_enemy[j].time)
+                    {
+                        team_fantom_enemy[j].time = team_fantom_enemy_const[j].time;
+                        team_fantom_enemy[j].disable = 1;
+                    }
+                    
+                    if (team_fantom_enemy[j].time > 0 &&  
+                        team_fantom_enemy[j].disable == 1)
+                    {
+                        team_fantom_enemy[j].disable = 1;
+                        for (int k = 0; k < team_fantom_enemy[j].rival; k++)
+                        {
+                            if (k == team_fantom.size())
+                                break;
+                            team_fantom[k].damage = 0;
+                        }
+                        team_fantom_enemy[j].interval = team_fantom_enemy_const[j].interval;
+                    }
+                    if (team_fantom_enemy[j].disable == 1)
+                    {
+                        team_fantom_enemy[j].time--;
+                    }
+                    if (team_fantom_enemy[j].time == 0)
+                    {
+                        team_fantom_enemy[j].disable = 0;
+                        for (int k = 0; k < team_fantom_enemy[j].rival; k++)
+                        {
+                            if (k == team_fantom.size())
+                                break;
+                            team_fantom[k].damage = team_fantom_const[k].damage;
+                        }
+                        team_fantom_enemy[j].interval--;
+                    }
+                }
+                
+                if (p_o_n_p == 1)
+                {
+                    cout << "не наш " << j + 1 << endl;
+                    print_table(team_fantom_enemy);
+                    cout << "наши" << endl;
+                    print_table(team_fantom);
+                }
+                
+                
+            }
+            
+            if (p_o_n_p == 1)
+                print_teams(team_fantom, team_fantom_enemy);
+
+            decrease_health( team_fantom, team_fantom_enemy, team_fantom_intermediate, team_fantom_const);
+            decrease_health( team_fantom_enemy, team_fantom, team_fantom_enemy_intermediate, team_fantom_enemy_const);
+
+
+            for (int j = 0; j < team_fantom.size(); j++)
+            {
+                team_fantom[j].time_fight = time;
+            }
+
+            if (p_o_n_p == 1)
+                print_teams(team_fantom, team_fantom_enemy);
+            
+            if (team_fantom_enemy.size() == 0 or team_fantom.size() == 0)
+            {
+                break;
+            }
+
+        }
+        if (team_fantom.size() == 0)
+            teams.erase(teams.begin() + i);
+        else
+        {
+            teams[i] = team_fantom_const;
+        }
+    }
+}
+
+void decrease_health(
+    vector < Character >& team_2, 
+    vector < Character >& team_1, 
+    vector < Character >& team_intermediate,
+    vector < Character >& team_const)
+{
+    byte dies = 0;
+    for (int j = 0; j < team_1.size(); j++) //перебираем всех в нашей команде
+    {
+        for (int k = 0; k < team_1[j].rival; k++) //отнимаем здоровье у противников
+        {
+            if (k == team_1.size())
+                break;
+            team_2[k].health -= team_1[j].damage;
+            if (team_2[k].health <= 0 && team_2[k].die == 0)
+            {
+                team_2[k].die = 1;
+                dies++;
+            }
+        }
+    }
+    if (dies > 0)
+    {
+        sort(team_2, team_const, 'h');
+        int k = team_2.size() - 1;
+        for (int i = 0; i < dies; i++) 
+        {
+            if (team_2[k].health <= 0)
+            {
+                die(team_2[k]);
+                print_table(team_2);
+                team_intermediate = team_2;
+                team_2.pop_back();
+                team_const.pop_back();
+            } 
+            k--;
+        }
+    }
+
+}
+
+void die(Character& character)
+{
+    character.damage = 0;
+    character.rival = 0;
+    character.health = 0;
+    character.time = 0;
+    character.interval = 0;
+    character.percent = 0;
+}
+
+void print_teams(vector < Character >& team_fantom, vector < Character >& team_fantom_enemy)
+{
+    cout << "наши" << endl;
+    print_table(team_fantom);
+    cout << "не наши" << endl;
+    print_table(team_fantom_enemy);
 }

@@ -6,10 +6,6 @@
 #include "string"
 #include "lab_4_1_func.h"
 
-
-using namespace std; //подключение пространства имен std
-
-
 void lab_4_1()
 {
     setlocale(0, ""); // поддержка кириллицы в консоли (вывод)

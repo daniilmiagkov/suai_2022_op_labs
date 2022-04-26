@@ -157,9 +157,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Character.h" />
     <ClInclude Include="dop_task_1_functions.h" />
     <ClInclude Include="lab_4_1_func.h" />
     <ClInclude Include="lab_4_2_functions.h" />
+    <ClInclude Include="Team.h" />
     <ClInclude Include="various_functions.h" />
     <ClInclude Include="main_header.h" />
   </ItemGroup>

@@ -52,7 +52,7 @@ void sorting_bubble_two_dimensional_vectors(vector<vector<int>>& Hs)
     for (int i = 0; i < Hs.size(); i++)
         for (int j = 0; j < Hs.size() - 1; j++)
             if (Hs[j] > Hs[j + 1])
-                swap_notstd(Hs[j], Hs[j + 1]);
+                swap(Hs[j], Hs[j + 1]);
 }
 
 string input_Is()

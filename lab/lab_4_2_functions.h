@@ -17,7 +17,7 @@ int find(vector < pair < int, int> > P, int Z_max);
 
 int in_count_ckills();
 
-int in_count_people();
+int input_count_people();
 
 void fill_pair(vector < pair < set <int>, int> >& P, unsigned short N, unsigned short lS_max, unsigned short Z_max);
 

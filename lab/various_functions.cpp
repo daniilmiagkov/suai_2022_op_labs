@@ -2,7 +2,6 @@
 #include <Windows.h> // библиотека
 #include "various_functions.h"
 #include <vector>
-#include "dop_task_1_functions.cpp"
 
 using namespace std;
 
@@ -15,7 +14,7 @@ double get_number_double()
     {
         std::string str;
         getline(cin, str);
-        if (check_int(str) == 1)
+        if (check_double(str) == 1)
         {
             return str_to_number<int>(str);
         }
@@ -26,7 +25,6 @@ int input_value(int a)
 {
     string str;
     getline(cin, str);
-    bufer += str;
     if (str[0] == '\0')
         return a;
 
@@ -93,6 +91,47 @@ boolean check_int(string str)
             {
                 k *= 0;
                 std::cout << "!!Вы ввели не целое число!!" << std::endl << "Введите целое число: ";
+                break;
+            }
+        }
+    }
+    return k;
+}
+
+boolean check_double(string str)
+{
+    boolean k = 1;
+
+    if (str.length() > 1)
+    {
+        if (((str[0] == '-') && (str[1] == '.' || (str[1] == '0' && str[2] != '.'))) ||
+            str[0] == '.' || (str[0] == '0' && str[1] != '.' && str[1] != '\n'))
+        {
+            k *= 0;
+            std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+        }
+        else
+        {
+            for (int i = 0; i < str.length(); i++)
+            {
+
+                if ((str[i] < '0' || str[i] > '9') && str.find('-') > 0 && str.find('-') != '-1')
+                {
+                    k *= 0;
+                    std::cout << "!!Вы ввели не целое число!!" << std::endl << "Введите целое число: ";
+                    break;
+                }
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < str.length(); i++)
+        {
+            if ((str[i] < '0' || str[i] > '9') && str[i] != '-' && str[i] != '.')
+            {
+                k *= 0;
+                std::cout << "!!Вы ввели не число!!" << std::endl << "Введите число: ";
                 break;
             }
         }
