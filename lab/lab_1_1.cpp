@@ -35,7 +35,7 @@ void lab_1_1()
     for (int i = 0; i < 4; i++) //ввод исходных элементов  
     {
         std::cout << "Введите " << i + 1 << " число: ";
-        array_of_sources[i] = get_number_double();
+        array_of_sources[i] = get_number<double>();
         std::cout << "число = " << array_of_sources[i] << std::endl;
 
     }

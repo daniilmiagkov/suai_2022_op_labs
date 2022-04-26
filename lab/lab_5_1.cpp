@@ -16,7 +16,7 @@ void lab_5_1()
     SetConsoleOutputCP(1251); // поддержка кириллицы в консоли (ввод)
 
     cout << "\n¬ведите размер последовательности: ";
-    int N = get_number_int(); //проверка и присваиваивание с помощью функции get_number
+    int N = get_number<int>(); //проверка и присваиваивание с помощью функции get_number
 
     for (int i = 0; i < N; i++)
     {

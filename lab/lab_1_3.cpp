@@ -77,14 +77,14 @@ void lab_1_3()
         std::cout << "Введите количество элементов исходного массива" << std::endl;
         while (true)
         {
-            length = get_number_int();
+            length = get_number<int>();
             if (length >= 0)
             {
                 file_input << length << std::endl;
                 for (int i = 0; i < length; i++) //Ввод исходных элементов  
                 {
                     std::cout << "Введите " << i + 1 << " число: ";
-                    file_input << get_number_int() << " "; // Записываем текст в файл
+                    file_input << get_number<int>() << " "; // Записываем текст в файл
                 }
                 break;
             }

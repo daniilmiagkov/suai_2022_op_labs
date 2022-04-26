@@ -74,13 +74,13 @@ void print_Hs(vector<vector<int>>& Hs)
 int input_P()
 {
     cout << "Введите P: ";
-    return input_value(10);
+    return input_value<int>(10);
 }
 
 int input_M()
 {
     cout << "Введите M: ";
-    return input_value(10001);
+    return input_value<int>(10001);
 }
 
 void in_vector(vector <string>& As)
@@ -106,7 +106,7 @@ void in_vector(vector <string>& As)
             }
             else 
             {
-                N = get_number_int_without_input(str);
+                N = get_number_without_input<int>(str);
                 break;
             }
         }
@@ -135,10 +135,10 @@ void fill_Hs(vector<vector<int>>& Hs, vector<string> As)
     unsigned long long H = 0;
     int P = input_P();
     //cout << "Введите P: ";
-    //int P = get_number_int();
+    //int P = get_number();
     int M = input_M();
     //cout << "Введите M: ";
-    //int M = get_number_int();
+    //int M = get_number();
     for (int i = 0; i < Hs.size(); i++)
     {
         for (int j = 0; j < As[i].length(); j++)

@@ -27,8 +27,8 @@ void lab_1_2()
     int N;
     double x;
     std::cout << "¬ведите целое число N" << std::endl;
-    N = get_number_int();
+    N = get_number<int>();
     std::cout << "¬ведите число x " << std::endl;
-    x = get_number_double();
+    x = get_number<double>();
     calculation_function(x, N);
 }

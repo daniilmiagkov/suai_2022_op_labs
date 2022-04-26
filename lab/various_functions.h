@@ -4,40 +4,229 @@ using std::string;
 using std::cout;
 using std::cin;
 
-double get_number_double();
-int get_number_int();
-int get_number_int_without_input(std::string str);
-boolean check_int(string str);
-boolean check_double(string str);
+template <typename T>
+T get_number_without_input(string str);
+template <typename T>
+T input_value(T a);
+template <typename T>
+T get_number();
+template <typename T>
+bool check(string str);
+template <typename T>
+bool check_without_print(string str);
+template <typename T>
+T str_to_number(string str);
 
-int input_value(int a);
+
+template <typename T>
+T input_value(T a)
+{
+    string str;
+    getline(cin, str);
+    if (str[0] == '\0')
+        return a;
+    return get_number_without_input<T>(str);
+}
+
+template <typename T>
+T get_number_without_input(string str)
+{
+    while (true) // цикл продолжается до тех пор, пока пользователь не введет корректное значение
+    {
+        if (check<T>(str) == 1)
+        {
+            return str_to_number<T>(str);
+        }
+        getline(cin, str);
+    }
+    
+}
+
+template <typename T>
+T get_number()
+{
+    while (true) // цикл продолжается до тех пор, пока пользователь не введет корректное значение
+    {
+        string str;
+        getline(cin, str);
+        if (check<T>(str) == 1) //проверка на число
+        {
+            return str_to_number<T>(str); //преобразование строки в число
+        }
+    }
+}
+
+template <typename T>
+bool check(string str)
+{
+    bool k = 1;
+
+    if ((str.find('-') < 1 || str.find('-') == -1) && ((str.find('.') < str.size() - 1 && str.find('.') > 0) || str.find('.') == -1))
+    {
+        if (str.length() > 1)
+        {
+            int count_minus = 0, count_point = 0;
+            for (int i = 0; i < str.length(); i++)
+            {
+                if (str[i] == '-')
+                {
+                    count_minus++;
+                }
+                if (str[i] == '.')
+                {
+                    count_point++;
+                }
+            }
+            if ((str[0] == '0' && str[1] != '.') || count_point > 1 ||
+                (str[0] == '-' && str[1] == '.') ||
+                (str[0] == '-' && str[1] == '0' && str[2] != '.') || count_minus > 1)
+            {
+                k *= 0;
+                std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+            }
+        }
+        else
+            if (str == "-")
+            {
+                k *= 0;
+                std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+            }
+        if (k == 1)
+        {
+            string s = typeid(T).name();
+            if (s == "double")
+            {
+                for (int i = 0; i < str.length(); i++)
+                {
+                    if ((str[i] < '0' || str[i] > '9') && str[i] != '.' && str[i] != '-')
+                    {
+                        k *= 0;
+                        std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+                        break;
+                    }
+                }
+            }
+            if (s == "int")
+            {
+                for (int i = 0; i < str.length(); i++)
+                {
+                    if ((str[i] < '0' || str[i] > '9') && str[i] != '-')
+                    {
+                        k *= 0;
+                        std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        k *= 0;
+        std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+    }
+
+    return k;
+}
+
+template <typename T>
+bool check_without_print(string str)
+{
+    bool k = 1;
+    // 67642.5423
+    //проверка на возможность существования такого числа
+    if ((str.find('-') < 1 || str.find('-') == -1) && ((str.find('.') < str.size() - 1 && str.find('.') > 0) || str.find('.') == -1))
+    {
+        //если длина больше 
+        if (str.length() > 1)
+        {
+            //проверка на возможность существования такого числа
+            //после нуля всегда точка или ничего, если ноль первый
+            //после - если ноль, то должна быть точка или ничего 
+            int count_minus = 0, count_point = 0;
+            for (int i = 0; i < str.length(); i++)
+            {
+                if (str[i] == '-')
+                {
+                    count_minus++;
+                }
+                if (str[i] == '.')
+                {
+                    count_point++;
+                }
+            }
+            if ((str[0] == '0' && str[1] != '.') || count_point > 1 ||
+                (str[0] == '-' && str[1] == '.') ||
+                (str[0] == '-' && str[1] == '0' && str[2] != '.') || count_minus > 1)
+            {
+                k *= 0;
+                std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+            }
+        }
+        else
+            if (str == "-")
+            {
+                k *= 0;
+            }
+        if (k == 1)
+        {
+            string s = typeid(T).name();
+            if (s == "double")
+            {
+                for (int i = 0; i < str.length(); i++)
+                {
+                    if ((str[i] < '0' || str[i] > '9') && str[i] != '.' && str[i] != '-')
+                    {
+                        k *= 0;
+                        break;
+                    }
+                }
+            }
+            if (s == "int")
+            {
+                for (int i = 0; i < str.length(); i++)
+                {
+                    if ((str[i] < '0' || str[i] > '9') && str[i] != '-')
+                    {
+                        k *= 0;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        k *= 0;
+    }
+
+    return k;
+}
 
 template <typename T>
 T str_to_number(std::string str)
 {
-    T a = 0;
-    int k = 0, m = 1;
+    T a = 0; //само число
+    int index = 0, k = 1;
     if (str[0] == '-')
     {
-        m = -1;
+        k = -1;
         str.erase(0, 1);
     }
+
     if (str.find('.') != -1)
     {
-        k = str.find('.');
+        index = str.find('.');
         str.erase(str.find('.'), 1);
     }
-    else k = str.length();
+    else
+        index = str.length();
     for (int i = 0; i < str.length(); i++)
     {
         a = a * 10 + (str[i] - '0');
     }
-    return m * (a / pow(10, (str.length() - k)));
+    return k * (a / pow(10, (str.length() - index)));
 }
-
-boolean check_int(string str);
-
-boolean check_int_without_print(string str);
 
 template <typename T>
 T* push_back(T x, int& length, T* array)
@@ -108,56 +297,3 @@ void sorting_two_dimensional(int& length, T**& array)
         for (int j = i; j > 0 && array[j - 1][0] > array[j][0]; j--)
             swap(array[j - 1], array[j]);
 }
-/*
-template <typename T>
-T get_number()
-{
-    T a;
-    while (!(std::cin >> a))
-    {
-        std::cin.clear();
-        while (std::cin.get() != '\n')
-            continue;
-        std::cout << "\aОшибка ввода! Возможно вы ввели не число, введите число: ";
-    }
-    return a;
-}*/
-/*
-template <typename T>
-T get_number()
-{
-    while (true)
-    {
-        T x;
-        std::cin >> x;
-        if (std::cin.fail())
-        {
-            std::cin.clear();
-            std::cin.ignore(9999999999, '\n');
-            std::cout << "Please try again to set the number \n";
-        }
-        else
-        {
-            return x;
-        }
-    }
-}
-
-/*
-template <typename T>
-T get_number()
-{
-    std::string input_s;
-    while (true)
-    {
-        std::cin >> input_s;
-        try {
-            T res = stoi(input_s);
-            return res;
-        }
-        catch (std::invalid_argument e) {
-            std::cout << "Ошибка ввода. Возможно вы ввели не число, введите число: \n";
-        }
-    }
-}
-*/

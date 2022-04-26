@@ -17,7 +17,7 @@ void lab_3_1()
     SetConsoleOutputCP(1251); // поддержка кириллицы в консоли (ввод)
 
     cout << "¬ведите число: ";
-    int number; //присваиваивание с помощью функции get_number_int
+    int number; //присваиваивание с помощью функции get_number
     cin >> number;
     int call_count = 0, deep_level = 0, max_deep_level = 0;
     //создание двух массивов

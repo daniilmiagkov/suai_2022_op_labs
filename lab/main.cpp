@@ -14,8 +14,8 @@ int main()
     if (debugging == true)
     {
         //lab_2_1();
-        lab_2_2();
-        //lab_4_2();
+        //lab_2_2();
+        lab_4_2();
         //lab_4_1();
         //dop_task_1();
         //lab_3_1();
@@ -39,7 +39,7 @@ int main()
 
         while (true)
         {
-            task_number = get_number_double();
+            task_number = get_number<double>();
             if (task_number == 1.1 ||
                 task_number == 1.2 ||
                 task_number == 1.3 ||

@@ -16,11 +16,11 @@ void lab_4_1()
     double average_time = 0;
 
     cout << "Введите количество измерений: ";
-    N = get_number_int();
+    N = get_number<int>();
     cout << "Введите количество матриц в измерении: ";
-    n = get_number_int();
+    n = get_number<int>();
     cout << "Введите размер матриц: ";
-    size = get_number_int();
+    size = get_number<int>();
     for (int i = 0; i < N; i++)
     {
         average_time += find_time(n, size);
