@@ -5,30 +5,31 @@
 
 using namespace std;
 
-char* get_random_array_of_char()
+string char_to_string(char ch)
 {
-    int len = rand() % 20 + 10;
-    char* array = new char[len];
-
-    for (int i = 0; i < len; i++)
-    {
-
-    }
-    return array;
+    string s = {};
+    s += ch;
+    return s;
 }
 
-void output_vector_int(std::vector<int>& array)
+template <typename T>
+string number_to_str(T a)
 {
-    for (int i = 0; i < array.size(); i++)
+    string type = typeid(a).name();
+    string S = {}, s = {};
+    if (type == "int")
     {
-        std::cout << array[i] << std::endl;
+        while (true)
+        {
+            S += (a % 10) + '0';
+            a /= 10;
+            if (a == 0)
+                break;
+        }
+        for (int i = S.size() - 1; i != -1; i--)
+        {
+            s += S[i];
+        }
     }
-}
-
-void output_vector_string(std::vector<std::string>& array)
-{
-    for (int i = 0; i < array.size(); i++)
-    {
-        std::cout << array[i] << std::endl;
-    }
+    return s;
 }

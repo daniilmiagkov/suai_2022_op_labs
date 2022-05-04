@@ -5,17 +5,17 @@
 #include "various_functions.h"
 #include "string"
 #include "vector"
+#include "Skills_and_salaries.h"
 #include <set>
 #include <iterator>
 
 using namespace std; //подключение пространства имен std
-struct Values
-{
-    boolean debugging = 1;
-};
-int find(vector < pair < int, int> > P, int Z_max);
 
-void repetitions(int& count, int last, vector <int> b, vector < pair < int, int> >& skills_and_salaries, vector < pair < set <int>, int> > P);
+int find_time(unsigned int size, bool print);
+
+void find(vector < Skills_and_salaries >& skills_and_salaries, int Z_max);
+
+void combinations(int& count, int last, vector <int> b, vector < Skills_and_salaries >& skills_and_salaries, vector < pair < set <int>, int> > P);
 
 int in_count_ckills();
 
@@ -27,4 +27,4 @@ void print_dash(int count);
 
 void print_three_vector(vector < pair < set <int>, int> > P, unsigned short lS_max);
 
-void print_vector_pair(vector < pair < int, int> > skills_and_salaries);
+void print_vector_pair(vector < Skills_and_salaries > skills_and_salaries, int M_max);

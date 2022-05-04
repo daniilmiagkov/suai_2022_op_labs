@@ -22,7 +22,7 @@
     <Filter Include="labs\lab_4_2">
       <UniqueIdentifier>{3311659f-eba9-43b6-b530-eddfaa78d787}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lab_4_1">
+    <Filter Include="labs\lab_4_1">
       <UniqueIdentifier>{6c6e27f4-318a-4014-a49e-f650024827b4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -67,10 +67,13 @@
       <Filter>labs\lab_4_2</Filter>
     </ClCompile>
     <ClCompile Include="lab_4_1.cpp">
-      <Filter>lab_4_1</Filter>
+      <Filter>labs\lab_4_1</Filter>
     </ClCompile>
     <ClCompile Include="lab_4_1_func.cpp">
-      <Filter>lab_4_1</Filter>
+      <Filter>labs\lab_4_1</Filter>
+    </ClCompile>
+    <ClCompile Include="lab_3_2.cpp">
+      <Filter>labs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -87,13 +90,16 @@
       <Filter>labs\lab_4_2</Filter>
     </ClInclude>
     <ClInclude Include="lab_4_1_func.h">
-      <Filter>lab_4_1</Filter>
+      <Filter>labs\lab_4_1</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>dop_task_1</Filter>
     </ClInclude>
     <ClInclude Include="Team.h">
       <Filter>dop_task_1</Filter>
+    </ClInclude>
+    <ClInclude Include="Skills_and_salaries.h">
+      <Filter>labs\lab_4_2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

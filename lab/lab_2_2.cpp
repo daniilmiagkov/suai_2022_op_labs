@@ -106,7 +106,7 @@ void in_vector(vector <string>& As)
             }
             else 
             {
-                N = get_number_without_input<int>(str);
+                N = get_number_input_after<int>(str);
                 break;
             }
         }

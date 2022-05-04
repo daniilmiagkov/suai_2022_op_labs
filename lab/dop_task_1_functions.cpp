@@ -191,17 +191,6 @@ unsigned short input_character_number(unsigned short n)
     return character_number;
 }
 
-unsigned short count_char(unsigned short a)
-{
-    unsigned short count = 0;
-    while (a > 0)
-    {
-        count++;
-        a /= 10;
-    }
-    return count + 1;
-}
-
 void print_enter(unsigned short n)
 {
     for (int i = 0; i < n; i++)
@@ -582,13 +571,6 @@ void combinations(int last, vector < Character >& team, vector <vector < Charact
     }
 }
 
-void print_all_teams(vector <vector < Character >>& teams)
-{
-    for (int i = 0; i < teams.size(); i++)
-    {
-        print_table(teams[i]);
-    }
-}
 
 unsigned short find_max_in_vector(vector < Character > characters)
 {

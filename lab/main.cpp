@@ -14,6 +14,7 @@ int main()
     if (debugging == true)
     {
         //lab_2_1();
+        //lab_5_1();
         //lab_2_2();
         lab_4_2();
         //lab_4_1();

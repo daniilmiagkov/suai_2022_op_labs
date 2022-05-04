@@ -40,8 +40,6 @@ pair <int, int> cursor_position();
 
 unsigned short input_character_number(unsigned short n);
 
-unsigned short count_char(unsigned short a);
-
 void print_enter(unsigned short n);
 
 void sort(vector < Character >& characters_1, vector < Character >& characters_2, char parametr);

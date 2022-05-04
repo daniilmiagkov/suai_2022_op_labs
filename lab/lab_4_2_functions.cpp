@@ -5,32 +5,88 @@
 #include "lab_4_2_functions.h"
 #include "string"
 #include "vector"
+#include "Skills_and_salaries.h"
 #include <set>
 #include <iterator>
 
 using namespace std; //подключение пространства имен std
 
+int find_time(unsigned int size, bool print)
+{
+    
+    int start_time, end_time;
 
-int find(vector < pair < int, int> > P, int Z_max)
+    srand(clock());
+
+    // N = количество претендетов 
+    // lS = количество навыков у претендента
+    // lS_max = максимальное количество навыков
+    // M_max = общее максимальное количество неповтор€ющихс€ навыков
+    // Z_max = бюджет
+
+    bool debugging = 1;
+
+    //unsigned short N = input_count_people();
+    unsigned short N = size;
+    //unsigned short lS_max = in_count_ckills();
+    unsigned short lS_max = 30;
+
+    unsigned short Z_max = N * (lS_max * 8) + rand() % 10;
+
+    vector < pair < set <int>, int> > P(N);
+    set <set<int>> sets_indexes;
+    vector < Skills_and_salaries > skills_and_salaries;
+    vector <int> indexes = {};
+
+    fill_pair(P, N, lS_max, Z_max);
+    unsigned short l_void = sqrt(N) + 1;
+
+    if (print == 1)
+    {
+        cout << "Ѕюджет = " << setw(l_void) << Z_max << endl;
+        print_three_vector(P, lS_max);
+    }
+
+
+    int count = 0;
+    int time_start = clock();
+    combinations(count, 0, indexes, skills_and_salaries, P);
+    int time_end = clock();
+    //cout << count;
+    if (print == 1)
+        print_vector_pair(skills_and_salaries, P.size());
+
+    find(skills_and_salaries, Z_max);
+
+    if (print == 1)
+    {
+        cout << endl << "ќтвет:" << endl;
+        print_vector_pair(skills_and_salaries, P.size());
+    }
+
+    return time_end - time_start;
+}
+
+void find(vector < Skills_and_salaries >& skills_and_salaries, int Z_max)
 {
     int salary_max = 0;
     int skills_max = 0;
-    for (int i = 0; i < P.size(); i++)
+    vector < Skills_and_salaries > array;
+    for (int i = 0; i < skills_and_salaries.size(); i++)
     {
-        if (P[i].first > salary_max && P[i].second < Z_max)
+        if (skills_and_salaries[i].sum_skills > skills_max && skills_and_salaries[i].sum_salaries < Z_max)
         {
-            skills_max = ;
+            skills_max = skills_and_salaries[i].sum_skills;
         }
     }
-    for (int i = 0; i < P.size(); i++)
+    for (int i = 0; i < skills_and_salaries.size(); i++)
     {
-        if (P[i].first == )
-
+        if (skills_and_salaries[i].sum_skills == skills_max)
         {
-            skills_max = i;
+            array.push_back(skills_and_salaries[i]);
         }
     }
-    return skills_max;
+    skills_and_salaries = array;
 }
 
 int in_count_ckills()
@@ -62,7 +118,7 @@ void fill_pair(vector < pair < set <int>, int> > & P, unsigned short N, unsigned
             S.insert(rand() % M_max + 1);
         }
 
-        P[i] = make_pair(S, lS * 20 + rand() % 10);
+        P[i] = make_pair(S, ((Z_max - 10) / (M_max)) * lS + rand() % 10);
     }
 }
 
@@ -88,7 +144,7 @@ void print_three_vector(vector < pair < set <int>, int> > P, unsigned short lS_m
     set <int> ::iterator it;
     for (int i = 0; i < P.size(); i++)
     {
-        cout << '|' << setw(2) << i + 1 << '|';
+        cout << '|' << setw(2) << i << '|';
         for (it = P[i].first.begin(); it != P[i].first.end(); it++)
         {
             cout << setw(3) << *it << '|';
@@ -97,7 +153,7 @@ void print_three_vector(vector < pair < set <int>, int> > P, unsigned short lS_m
         {
             cout << setw(4) << '|';
         }
-        //cout << setw(4 * (N - P[i].first.size() + 3)) << "| зп = " << P[i].second << endl;
+        //cout << setw(4 * (N - skills_and_salaries[i].first.size() + 3)) << "| зп = " << skills_and_salaries[i].second << endl;
         cout << " зп =" << setw(4) << P[i].second << endl;
 
         print_dash(lS_max);
@@ -105,36 +161,67 @@ void print_three_vector(vector < pair < set <int>, int> > P, unsigned short lS_m
     }
 }
 
-void repetitions(int& count, int last, vector <int> indexes, vector < pair < int, int> >& skills_and_salaries, vector < pair < set <int>, int> > P)
+void combinations(int& count, int last, vector <int> indexes, vector < Skills_and_salaries >& skills_and_salaries, vector < pair < set <int>, int> > P)
 {
     set <int> unification = {};
     int sum_salaries = 0;
-
     for (int index = 0; index < indexes.size(); index++)
     {
         copy(P[indexes[index]].first.begin(), P[indexes[index]].first.end(), inserter(unification, unification.begin()));
         sum_salaries += P[indexes[index]].second;
         count++;
-        cout << indexes[index];
     }
     if (indexes.size() != 0)
     {
-        skills_and_salaries.push_back(make_pair(unification.size(), sum_salaries));
-        cout << endl;
+        Skills_and_salaries sk_and_sa;
+        sk_and_sa.index = skills_and_salaries.size();
+        sk_and_sa.push(indexes, sum_salaries, unification.size());
+        skills_and_salaries.push_back(sk_and_sa);
     }
     
     for (int index = last + 1; index <= P.size(); index++)
     {
         indexes.push_back(index - 1);
-        repetitions(count, index, indexes, skills_and_salaries, P);
+        combinations(count, index, indexes, skills_and_salaries, P);
         indexes.pop_back();
     }
+    
 }
 
-void print_vector_pair(vector < pair < int, int> > skills_and_salaries)
+void print_vector_pair(vector < Skills_and_salaries > skills_and_salaries, int size)
 {
-    for (int i = 0; i < skills_and_salaries.size(); i++)
-    {
-        cout << setw(3) << i << setw(8) << skills_and_salaries[i].first << setw(4) << skills_and_salaries[i].second << endl;
+    if (size > 9)
+    {      
+        size += (size - 9);
+        cout << setw(size - 1) << "Ёлементы:" << '|' << setw(8) << "»ндекс:" << '|' << setw(15) << "—умма навыков:" << '|' << setw(15) << "—умма зарплат:" << '|' << endl;
+
+        for (int i = 0; i < skills_and_salaries.size(); i++)
+        {        
+            int k = 0;
+            for (int j = 0; j < skills_and_salaries[i].indexes.size(); j++)
+            {
+                if (skills_and_salaries[i].indexes[j] > 9)
+                    k++;
+                cout << skills_and_salaries[i].indexes[j];
+            }
+            cout << setw(size - skills_and_salaries[i].indexes.size() - k) << '|' << setw(8) << skills_and_salaries[i].index << '|' << setw(15) << skills_and_salaries[i].sum_skills << '|' << setw(15) << skills_and_salaries[i].sum_salaries << '|' << endl;
+        }
     }
+
+    else
+    {
+        cout << setw(9) << "Ёлементы:" << '|' << setw(8) << "»ндекс:" << '|' << setw(15) << "—умма навыков:" << '|' << setw(15) << "—умма зарплат:" << '|' << endl;
+
+        for (int i = 0; i < skills_and_salaries.size(); i++)
+        {
+            for (int j = 0; j < skills_and_salaries[i].indexes.size(); j++)
+            {
+                cout << skills_and_salaries[i].indexes[j];
+            }
+            cout << setw(size - skills_and_salaries[i].indexes.size() + 1 + 9 - size) << '|' << setw(8) << skills_and_salaries[i].index << '|' << setw(15) << skills_and_salaries[i].sum_skills << '|' << setw(15) << skills_and_salaries[i].sum_salaries << '|' << endl;
+        }
+    }
+    
+    
 }
+
