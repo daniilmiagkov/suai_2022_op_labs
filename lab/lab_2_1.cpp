@@ -1,6 +1,5 @@
 #include <iostream>// библиотека
 #include <Windows.h> // библиотека
-#include "various_functions.h"
 #include "main_header.h"
 
 using namespace std;

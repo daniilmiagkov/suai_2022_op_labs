@@ -12,24 +12,3 @@ string char_to_string(char ch)
     return s;
 }
 
-template <typename T>
-string number_to_str(T a)
-{
-    string type = typeid(a).name();
-    string S = {}, s = {};
-    if (type == "int")
-    {
-        while (true)
-        {
-            S += (a % 10) + '0';
-            a /= 10;
-            if (a == 0)
-                break;
-        }
-        for (int i = S.size() - 1; i != -1; i--)
-        {
-            s += S[i];
-        }
-    }
-    return s;
-}

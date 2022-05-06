@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 using std::string;
 using std::cout;
 using std::cin;
@@ -17,6 +18,28 @@ bool check_without_print(string str);
 template <typename T>
 T str_to_number(string str);
 string char_to_string(char ch);
+
+template <typename T>
+string number_to_str(T a)
+{
+    string type = typeid(a).name();
+    string S = {}, s = {};
+    if (type == "int")
+    {
+        while (true)
+        {
+            S += (a % 10) + '0';
+            a /= 10;
+            if (a == 0)
+                break;
+        }
+        for (int i = S.size() - 1; i != -1; i--)
+        {
+            s += S[i];
+        }
+    }
+    return s;
+}
 
 template <typename T>
 T input_value(T a)

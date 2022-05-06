@@ -45,7 +45,7 @@ int find_time(unsigned int n, unsigned int size)
         if (value.debugging == 0)
         {
             cout << "исходная матрица:" << endl;
-            print_vector_two_dimensional(matrix);
+            print_vector_two_dimensional_4_1(matrix);
         }
 
         start_time = clock();
@@ -57,13 +57,13 @@ int find_time(unsigned int n, unsigned int size)
         if (value.debugging == 1)
         {
             cout << "полученная матрица" << endl;
-            print_vector_two_dimensional(matrix);
+            print_vector_two_dimensional_4_1(matrix);
         }
 
         if (value.debugging == 1)
         {
             cout << "ответ: " << endl;
-            print_vector(matrix_x);
+            print_vector_4_1(matrix_x);
             
             for (int i = 0; i < 6; i++)
             {
@@ -107,7 +107,7 @@ void calculation(vector <vector <long long>> &matrix)
                     final = 0;
                     if (value.debugging == 0)                    
                         cout << "матрица вырожденная, значит имеет бесконечно много решений!" << endl;
-                        print_vector_two_dimensional(matrix);
+                        print_vector_two_dimensional_4_1(matrix);
                     break;
                     exit(0);
                 }
@@ -117,7 +117,7 @@ void calculation(vector <vector <long long>> &matrix)
                     if (value.debugging == 1)
                     {
                         cout << "матрица после перестановки строк:" << endl;
-                        print_vector_two_dimensional(matrix);
+                        print_vector_two_dimensional_4_1(matrix);
                     }
                     break;
                 }
@@ -165,7 +165,7 @@ void calculation(vector <vector <long long>> &matrix)
             {
                 cout << "матрица после прохода " << i + 1 << " строки, " << k + 1 << " столбца; " << endl;
 
-                print_vector_two_dimensional(matrix);
+                print_vector_two_dimensional_4_1(matrix);
 
                 cout << endl;
             }
@@ -193,7 +193,7 @@ vector <double> decision(vector <vector <long long>> matrix)
     return matrix_x;
 }
 
-void print_vector(vector <double> matrix)
+void print_vector_4_1(vector <double> matrix)
 {
     for (int i = 0; i < matrix.size(); i++)
     {
@@ -213,7 +213,7 @@ void fill(vector <vector <long long>>& matrix)
     }
 }
 
-void print_vector_two_dimensional(vector <vector <long long>> matrix)
+void print_vector_two_dimensional_4_1(vector <vector <long long>> matrix)
 {
     unsigned int N = matrix.size();
     for (int i = 0; i < matrix.size(); i++)

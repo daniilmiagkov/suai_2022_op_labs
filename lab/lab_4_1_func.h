@@ -19,9 +19,9 @@ void calculation(vector <vector <long long>> &matrix);
 
 int find_time(unsigned int n, unsigned int size);
 
-void print_vector_two_dimensional(vector <vector <long long>> matrix);
+void print_vector_two_dimensional_4_1(vector <vector <long long>> matrix);
 
-void print_vector(vector <double> matrix);
+void print_vector_4_1(vector <double> matrix);
 
 vector <double> decision(vector <vector <long long>> matrix);
 
