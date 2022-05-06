@@ -25,7 +25,12 @@ string number_to_str(T a)
     string type = typeid(a).name();
     string S = {}, s = {};
     if (type == "int")
-    {
+    { 
+        if (a < 0)
+        {
+            a = a * -1;
+            s += '-';
+        }
         while (true)
         {
             S += (a % 10) + '0';
@@ -33,6 +38,7 @@ string number_to_str(T a)
             if (a == 0)
                 break;
         }
+            
         for (int i = S.size() - 1; i != -1; i--)
         {
             s += S[i];
