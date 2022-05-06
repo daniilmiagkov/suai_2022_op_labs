@@ -75,9 +75,6 @@
     <ClCompile Include="lab_3_2.cpp">
       <Filter>labs</Filter>
     </ClCompile>
-    <ClCompile Include="lab_3_2_copy.cpp">
-      <Filter>labs</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main_header.h">

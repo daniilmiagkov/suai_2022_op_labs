@@ -72,7 +72,7 @@ void decrease_health(vector < Character >& team_fantom, vector < Character >& te
 
 void print_teams(vector < Character >& team_fantom, vector < Character >& team_enemy_fantom);
 
-bool print_or_not_print();
+bool Print_or_not_print();
 
 void die(Character& character);
 

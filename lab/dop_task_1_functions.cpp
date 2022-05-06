@@ -597,7 +597,7 @@ bool all_equal_to_zero(vector < Character >& team)
     return temp;
 }
 
-bool print_or_not_print()
+bool Print_or_not_print()
 {
     int a;
     pair <int, int> x_y = cursor_position();
@@ -634,7 +634,7 @@ void find_winner_team(vector <vector < Character >>& teams, vector < Character >
         team_fantom_enemy_intermediate,
         team_fantom_const,
         team_fantom_enemy_const;
-    bool p_o_n_p = print_or_not_print();
+    bool p_o_n_p = Print_or_not_print();
     for (int i = 0; i < teams.size(); i++)
     {
         time = 0;

@@ -14,7 +14,10 @@ struct Point
 {
     int x, y;
 };
-
+struct Values
+{
+    bool print_or_not_print = 0;
+};
 void print_vector_of_vectors(vector <vector <Point>> array);
 string print_Point(Point A);
 void print_string(int call_count, int deep_level, vector<Point> memory);
@@ -28,6 +31,8 @@ void lab_3_2()
     setlocale(0, ""); // поддержка кириллицы в консоли (вывод)
     SetConsoleCP(1251); // поддержка кириллицы в консоли (ввод)
     SetConsoleOutputCP(1251); // поддержка кириллицы в консоли (ввод)
+
+    Values values;
 
     int call_count = 0, deep_level = 0, max_deep_level = 0, height = 3, wight = 3;
     /*
@@ -49,38 +54,56 @@ void lab_3_2()
         T.push_back(tmp);
     }*/
 
-    //T = { {2, 1},{-2, -1},{1, 2},{-1, -2} };
-    //T = { {0, 1},{0, -1},{1, 0},{-1, 0} };
-    T = { {0, 1}, {0, -1},{1,0} };
-    //создание двух массивов
-    vector <Point> memory = {};
-    vector <int> levels = {};
-    vector <vector <Point>> routes = {};
-    Point A = { 1,1 };
-    Point last_A = A;
-    /*cout << "Введите (Ax,Ay)\nВведите A.x: ";
-    A.x = get_number<int>();
-    cout << "Введите A.y: ";
-    A.y = get_number<int>();
-    */
-
-    int count = 0;
-    int i = 0;
-    cout
-        << "\nКоличество вызовов:| Глубина:| Значение:"
-        << endl;
-    find_route(routes, wight, height, T, answer, A, last_A, count, call_count, memory, deep_level, levels, max_deep_level);
-    if (routes.size() != 0)
+    cout << "Поиск массивов ходов (1) или проверка работы (0):";
+    bool task = get_number < bool>();
+    if (task == 0)
     {
-        print_vector_of_vectors(routes);
+        //T = { {2, 1},{-2, -1},{1, 2},{-1, -2} };
+        //T = { {0, 1},{0, -1},{1, 0},{-1, 0} };
+        T = { {0, 1}, {0, -1},{1,0} };
+
+
+        //создание двух массивов
+        vector <Point> memory = {};
+        vector <int> levels = {};
+        vector <vector <Point>> routes = {};
+        Point A = { 1,1 };
+        Point last_A = A;
+        /*cout << "Введите (Ax,Ay)\nВведите A.x: ";
+        A.x = get_number<int>();
+        cout << "Введите A.y: ";
+        A.y = get_number<int>();
+        */
+
+
+        int count = 0;
+        int i = 0;
+
+        if (values.print_or_not_print == 1)
+            cout << "\nКоличество вызовов:| Глубина:| Значение:\n";
+        find_route(routes, wight, height, T, answer, A, last_A, count, call_count, memory, deep_level, levels, max_deep_level);
+        if (routes.size() != 0)
+        {
+            if (values.print_or_not_print == 1)
+                print_vector_of_vectors(routes);
+        }
+        else 
+            if (values.print_or_not_print == 1)
+                cout << "Невозможно";
     }
-    else cout << "Невозможно";
+    else
+    {
+        cout << "Условие: ходы в диапазоне [-2;2], размер массива [1;4]\n";
+        vector <vector<Point> > variants
+
+    }
+    
 
 }
 
 bool find_route(vector <vector <Point>>& routes, int wight, int height, vector<Point> T, vector<Point> route, Point A, Point last_A, int count, int& call_count, vector<Point>& memory, int deep_level, vector<int>& levels, int& max_deep_level)
 {
-
+    Values values;
     call_count++;
     deep_level++;
     //print_vector_of_vectors(route); 
@@ -89,13 +112,15 @@ bool find_route(vector <vector <Point>>& routes, int wight, int height, vector<P
 
     route.push_back(A);//запись в массив значения числа 
     memory.push_back(A);
-    print_string(call_count, deep_level - 1, route);
+    if (values.print_or_not_print == 1)
+        print_string(call_count, deep_level - 1, route);
 
     if (A.x < 1 || A.y < 1 || A.x > wight || A.y > height)
     {
         //levels.pop_back();
         //route.pop_back();
-        cout << "\nВышли за границы. \n";
+        if (values.print_or_not_print == 1)
+            cout << "\nВышли за границы. \n";
         return 0;
     }
 
@@ -108,13 +133,15 @@ bool find_route(vector <vector <Point>>& routes, int wight, int height, vector<P
     {
         //A.x -= T[j].x;
         //A.y -= T[j].y;
-        cout << "\nВернулись в одну из предыдущих точек. \n";
+        if (values.print_or_not_print == 1)
+            cout << "\nВернулись в одну из предыдущих точек. \n";
         return 0;
     }
 
     if (wight * height == route.size())
     {
-        cout << "\nНашли путь!";
+        if (values.print_or_not_print == 1)
+            cout << "\nНашли путь!";
 
         return 1;
     }
@@ -129,16 +156,20 @@ bool find_route(vector <vector <Point>>& routes, int wight, int height, vector<P
 
         if (find_route(routes, wight, height, T, route, A, last_A, count, call_count, memory, deep_level, levels, max_deep_level))
         {
-            cout << "\nПуть:\n";
+            
 
             route.push_back(A);
-            print_route(route);
+            if (values.print_or_not_print == 1)
+            {
+                cout << "\nПуть:\n";
+                print_route(route);
+            }
             routes.push_back(route);
             route.pop_back();
 
             if (i != T.size() - 1)
-
-                cout << "Идем дальше:" << endl;
+                if (values.print_or_not_print == 1)
+                    cout << "Идем дальше:" << endl;
             //route.pop_back();
             //route.push_back(A);
             //break;
@@ -149,13 +180,16 @@ bool find_route(vector <vector <Point>>& routes, int wight, int height, vector<P
 
             if (i < T.size() - 1)
             {
-                cout << "Идем на предыдущий шаг: \n";
-                //cout << "Точка в которую вернулись:" << endl;
-                print_string(call_count, deep_level - 1, route);
-                cout << "\nВесь маршрут:" << endl;
-                print_route(route);
+                if (values.print_or_not_print == 1)
+                {
+                    cout << "Идем на предыдущий шаг: \n";
+                    //cout << "Точка в которую вернулись:" << endl;
+                    print_string(call_count, deep_level - 1, route);
+                    cout << "\nВесь маршрут:" << endl;
+                    print_route(route);
 
-                cout << "Идем дальше:" << endl;
+                    cout << "Идем дальше:" << endl;
+                }
             }
 
 
@@ -166,7 +200,8 @@ bool find_route(vector <vector <Point>>& routes, int wight, int height, vector<P
         A.y -= T[i].y;
 
     }
-    cout << "Закончились варианты следующего пути для точки " << print_Point(A) << ".  \n\n";
+    if (values.print_or_not_print == 1)
+        cout << "Закончились варианты следующего пути для точки " << print_Point(A) << ".  \n\n";
     return 0;
 }
 

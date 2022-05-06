@@ -145,7 +145,6 @@
     <ClCompile Include="lab_2_2.cpp" />
     <ClCompile Include="lab_3_1.cpp" />
     <ClCompile Include="lab_3_2.cpp" />
-    <ClCompile Include="lab_3_2_copy.cpp" />
     <ClCompile Include="lab_4_1.cpp" />
     <ClCompile Include="lab_4_1_func.cpp" />
     <ClCompile Include="lab_4_2.cpp" />
