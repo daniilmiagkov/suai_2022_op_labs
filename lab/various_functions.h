@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Point.h"
 using std::string;
 using std::cout;
 using std::cin;
+using std::pair;
 
 template <typename T>
 T get_number_input_after(string str);
@@ -18,6 +20,12 @@ bool check_without_print(string str);
 template <typename T>
 T str_to_number(string str);
 string char_to_string(char ch);
+
+Point cursor_position();
+
+void set_cursor_position(Point A);
+
+void erase_past_output(Point A);
 
 template <typename T>
 string number_to_str(T a)

@@ -22,21 +22,17 @@ char input_task();
 
 Character fill_max(unsigned short n);
 
-vector <Character> input_team_enemy(vector <Character>& characters, pair <int, int>& x_y);
+vector <Character> input_team_enemy(vector <Character>& characters, Point& A);
 
 unsigned short input_number_enemy(vector <Character> characters);
 
 short find_vec(vector <Character> characters, unsigned short temp);
-
-void erase_past_output(pair <int, int> x_y);
 
 void print_title();
 
 void rang(vector < Character >& characters);
 
 unsigned short input_count_people();
-
-pair <int, int> cursor_position();
 
 unsigned short input_character_number(unsigned short n);
 
@@ -54,9 +50,7 @@ void print_max(Character max_values);
 
 void print_line(Character character);
 
-void set_cursor_position(int x, int y);
-
-void print_enemy_team(vector < Character > enemy_team, pair <int, int> x_y);
+void print_enemy_team(vector < Character > enemy_team, Point A);
 
 void print_table(vector < Character > characters);
 
@@ -72,7 +66,7 @@ void decrease_health(vector < Character >& team_fantom, vector < Character >& te
 
 void print_teams(vector < Character >& team_fantom, vector < Character >& team_enemy_fantom);
 
-bool print_or_not_print();
+bool Print_or_not_print();
 
 void die(Character& character);
 

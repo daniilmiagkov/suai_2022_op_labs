@@ -75,9 +75,6 @@
     <ClCompile Include="lab_3_2.cpp">
       <Filter>labs</Filter>
     </ClCompile>
-    <ClCompile Include="lab_3_2_copy.cpp">
-      <Filter>labs</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main_header.h">
@@ -103,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="Skills_and_salaries.h">
       <Filter>labs\lab_4_2</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

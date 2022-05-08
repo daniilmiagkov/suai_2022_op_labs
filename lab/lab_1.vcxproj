@@ -145,7 +145,6 @@
     <ClCompile Include="lab_2_2.cpp" />
     <ClCompile Include="lab_3_1.cpp" />
     <ClCompile Include="lab_3_2.cpp" />
-    <ClCompile Include="lab_3_2_copy.cpp" />
     <ClCompile Include="lab_4_1.cpp" />
     <ClCompile Include="lab_4_1_func.cpp" />
     <ClCompile Include="lab_4_2.cpp" />
@@ -163,6 +162,7 @@
     <ClInclude Include="dop_task_1_functions.h" />
     <ClInclude Include="lab_4_1_func.h" />
     <ClInclude Include="lab_4_2_functions.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="Skills_and_salaries.h" />
     <ClInclude Include="Team.h" />
     <ClInclude Include="various_functions.h" />
