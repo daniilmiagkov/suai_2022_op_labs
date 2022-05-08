@@ -20,7 +20,8 @@ int main()
         //lab_4_1();
         //dop_task_1();
         //lab_3_1();
-        lab_3_2();
+        //lab_3_2();
+        lab_3_2_copy();
     }
     else
     {
