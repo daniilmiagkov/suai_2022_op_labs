@@ -7,33 +7,34 @@
 #include "vector"
 #include <set>
 #include <iterator>
+#include "Point.h"
 
 using namespace std; //подключение пространства имен std
 
-struct Point
-{
-    int x, y;
-};
 struct Values
 {
-    bool print_or_not_print = 1, print_or_not_print_find_array = 1;
+    bool print_or_not_print = 0, print_or_not_print_find_array = 1;
 };
 struct Routes
 {
     vector <Point> route;
     vector <Point> step;
 };
-void print_vector_of_vectors(vector <Routes> array);
+
+void print_vector_of_vectors(int height, int width, vector <Routes> array, bool print_table_route, bool print_on_place);
+//void print_vector_of_vectors(vector <Routes> array);
 string Point_to_string(Point A);
 void print_string(int call_count, int deep_level, vector<Point> memory);
 void print_vector_of_point(vector<Point> T);
 void print_string(int deep_level, Point A);
 bool in_route(vector<Point> memory, Point A);
-void print_area(int height, int  width, Point A);
+//bool in_T(vector<Point> T, Point A);
+void print_area(int height, int  width, vector <Point> route, int size);
+//void print_area(int height, int width, Point A);
 void print_route(vector<Point> memory);
 vector<vector<Point>> fill_variants();
-void rec_fill_variants(int i, vector<vector<Point>>& variants, vector<Point> T, int size, vector<Point>& P);
-bool find_route(vector <Routes>& routes, int wight, int height, vector<Point> T, Routes route, Point A, int count, int& call_count, vector<Point>& memory, int deep_level, vector<int>& levels, int& max_deep_level);
+void rec_fill_variants(int last, int m, vector<int> indexes, vector<vector<Point>>& variants, vector<Point> T);
+bool find_route(Point step, vector <Routes>& routes, int width, int height, vector<Point> T, Routes route, Point A, int count, int& call_count, vector<Point>& memory, int deep_level, vector<int>& levels, int& max_deep_level);
 
 void lab_3_2()
 {
@@ -43,7 +44,7 @@ void lab_3_2()
 
     Values values;
 
-    int call_count = 0, deep_level = 0, max_deep_level = 0, height = 4, width = 1, count = 0;
+    int call_count = 0, deep_level = 0, max_deep_level = 0, height = 4, width = 4, count = 0;
     /*
     cout << "Введите размеры поля \nВведите height: ";
     int height = get_number<int>();
@@ -55,9 +56,9 @@ void lab_3_2()
     vector <int> levels = {};
     vector <Routes> routes = {};
     //T = { {2, 1},{-2, -1},{1, 2},{-1, -2} };
-        //T = { {0, 1},{0, -1},{1, 0},{-1, 0} };
-    T = { {0, 1}, {0, -1},{1,0} };
-
+         //T = { {0, 1},{0, -1},{1, 0},{-1, 0} };
+    T = { {0, 1}, {0, -1},{-1, 0},{2, 1} };
+    //values.print_or_not_print = 0;
 
         
     /*cout << "Введите (Ax,Ay)\nВведите A.x: ";
@@ -76,28 +77,40 @@ void lab_3_2()
         }
         T.push_back(tmp);
     }*/
-    print_area(height, width, A);
+
+    route.route.push_back(A);
+    print_area(height, width, route.route, route.route.size());
+    route.route.pop_back();
+
     cout << "Поиск массивов ходов (1) или проверка работы (0): ";
     bool task;
     task = get_number < bool>();
     //task = 1;
     if (task == 0)
     {
-        
-
-
-        
-
         if (values.print_or_not_print == 1)
             cout << "\nКоличество вызовов:| Глубина:| Значение:\n";
-        find_route(routes, width, height, T, route, A, count, call_count, memory, deep_level, levels, max_deep_level);
+        find_route({}, routes, width, height, T, route, A, count, call_count, memory, deep_level, levels, max_deep_level);
         if (routes.size() != 0)
         {
-            if (values.print_or_not_print == 1)
-                print_vector_of_vectors(routes);
+            cout << "Найдены маршруты! Количество: " << routes.size() << endl;
+
+            if (values.print_or_not_print == 0)
+            {
+                cout << "Печатать (1) или не печатать (0) путь графически: ";
+                bool print_table_route, print_on_place = 0;
+                print_table_route = get_number < bool>();
+                if (print_table_route)
+                {
+                    cout << "Печатать на одном месте (1) или нет (0): ";
+                    print_on_place = get_number < bool>();
+                }
+                
+                print_vector_of_vectors(height, width, routes, print_table_route, print_on_place);
+            }
         }
         else 
-            if (values.print_or_not_print == 1)
+            if (values.print_or_not_print == 0)
                 cout << "Невозможно";
     }
     else
@@ -105,6 +118,15 @@ void lab_3_2()
         cout << "Условие: ходы в диапазоне [-2;2], размер массива [1;4]\n";
         vector<vector<Point>> variants = fill_variants();
         int j = 1;
+        cout << "Печатать (1) или не печатать (0) путь графически: ";
+        bool print_table_route, print_on_place = 0;
+        print_table_route = get_number < bool>();
+        if (print_table_route)
+        {
+            cout << "Печатать на одном месте (1) или нет (0): ";
+            print_on_place = get_number < bool>();
+        }
+
         for (int i = 0; i < variants.size(); i++)
         {
             T = variants[i];
@@ -114,14 +136,14 @@ void lab_3_2()
             route = {};
             
 
-            find_route(routes, width, height, T, route, A, count, call_count, memory, deep_level, levels, max_deep_level);
+            find_route({}, routes, width, height, T, route, A, count, call_count, memory, deep_level, levels, max_deep_level);
             if (routes.size() != 0)
             {
                 if (values.print_or_not_print_find_array == 1)
                 {
                     cout << "Массив ходов: " << endl;
                     print_vector_of_point(T);
-                    print_vector_of_vectors(routes);
+                    print_vector_of_vectors(height, width, routes, print_table_route, print_on_place);
 
                 }
             }
@@ -133,14 +155,14 @@ void lab_3_2()
 
 }
 
-void print_area(int height,int  width, Point A)
+void print_area(int height,int  width, vector <Point> route, int size)
 {
     vector <vector <char>> P(height * 2 + 3);
     P[0].push_back(' ');
     P[0].push_back('|');
     for (int j = 0; j < width; j++)
     {
-        P[0].push_back(number_to_str(j)[0]);
+        P[0].push_back(number_to_str(j + 1)[0]);
         P[0].push_back('|');
     }
     for (int j = 0; j < width * 2 + 2; j++)
@@ -149,7 +171,7 @@ void print_area(int height,int  width, Point A)
     }
     for (int i = 2; i < height * 2 + 2; i++)
     {            
-        P[i].push_back(number_to_str((i - 1)/2)[0]);
+        P[i].push_back(number_to_str((i)/2)[0]);
 
         P[i].push_back('|');
         for (int j = 0; j < width; j++)
@@ -164,11 +186,70 @@ void print_area(int height,int  width, Point A)
         }
 
     }
-    if (A.x > 0 && A.y > 0)
+
+
+    for (int i = 0; i < size; i++)
     {
-        P[A.y + 1][A.x + 1] = '.';
+        if (route[i].x > 0 && route[i].y > 0)
+        {
+            P[route[i].y * 2][route[i].x * 2] = '.';
+        }
     }
-    for (int i = 0; i < P.size(); i++)
+    
+
+    for (int i = P.size() - 1; i > -1; i--)
+    {
+        for (int j = 0; j < P[i].size(); j++)
+        {
+            cout << P[i][j];
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
+/*void print_area(int height, int  width, Point A)
+{
+    vector <vector <char>> P(height * 2 + 3);
+    P[0].push_back(' ');
+    P[0].push_back('|');
+    for (int j = 0; j < width; j++)
+    {
+        P[0].push_back(number_to_str(j + 1)[0]);
+        P[0].push_back('|');
+    }
+    for (int j = 0; j < width * 2 + 2; j++)
+    {
+        P[1].push_back('-');
+    }
+    for (int i = 2; i < height * 2 + 2; i++)
+    {
+        P[i].push_back(number_to_str((i) / 2)[0]);
+
+        P[i].push_back('|');
+        for (int j = 0; j < width; j++)
+        {
+            P[i].push_back(' ');
+            P[i].push_back('|');
+        }
+        i++;
+        for (int j = 0; j < width * 2 + 2; j++)
+        {
+            P[i].push_back('-');
+        }
+
+    }
+
+
+    
+        if (A.x > 0 && A.y > 0)
+        {
+            P[A.y * 2][A.x * 2] = '.';
+        }
+    
+
+
+    for (int i = P.size() - 1; i > -1; i--)
     {
         for (int j = 0; j < P[i].size(); j++)
         {
@@ -177,18 +258,18 @@ void print_area(int height,int  width, Point A)
         cout << endl;
     }
 }
+*/
 
-
-bool find_route(vector <Routes>& routes, int width, int height, vector<Point> T, Routes route, Point A,  int count, int& call_count, vector<Point>& memory, int deep_level, vector<int>& levels, int& max_deep_level)
+bool find_route(Point step, vector <Routes>& routes, int width, int height, vector<Point> T, Routes route, Point A,  int count, int& call_count, vector<Point>& memory, int deep_level, vector<int>& levels, int& max_deep_level)
 {
     Values values;
-    values.print_or_not_print = 0;
+    //values.print_or_not_print = 1;
     call_count++;
     deep_level++;
     //print_vector_of_vectors(route); 
 
     levels.push_back(deep_level - 1);//запись в массив уровня глубины 
-
+    route.step.push_back(step);
     route.route.push_back(A);//запись в массив значения числа 
     //запись в массив значения числа 
     memory.push_back(A);
@@ -233,20 +314,21 @@ bool find_route(vector <Routes>& routes, int width, int height, vector<Point> T,
 
         A.x += T[i].x;
         A.y += T[i].y;
-        route.step.push_back(T[i]);
-        if (find_route(routes, width, height, T, route, A, count, call_count, memory, deep_level, levels, max_deep_level))
+        
+        if (find_route(T[i], routes, width, height, T, route, A, count, call_count, memory, deep_level, levels, max_deep_level))
         {
             
 
             route.route.push_back(A);
-            route.step.push_back(T[i]);//запись в массив значения числа 
+            route.step.push_back(step);//запись в массив значения числа 
             if (values.print_or_not_print == 1)
             {
                 cout << "\nПуть:\n";
                 print_route(route.route);
+
+
             }
             routes.push_back(route);
-            
             route.route.pop_back();
             route.step.pop_back();
             if (i != T.size() - 1)
@@ -273,6 +355,8 @@ bool find_route(vector <Routes>& routes, int width, int height, vector<Point> T,
                     
                     cout << "\nВесь маршрут:" << endl;
                     print_route(route.route);
+                    print_area(height, width, route.route, route.route.size());
+
 
                     cout << "Идем дальше:" << endl;
                 }
@@ -291,6 +375,99 @@ bool find_route(vector <Routes>& routes, int width, int height, vector<Point> T,
     return 0;
 }
 
+void print_vector_of_vectors(int height, int width, vector <Routes> array, bool print_table_route, bool print_on_place)
+{
+    for (int i = 0; i < array.size(); i++)
+    {
+        for (int k = i + 1; k < array.size(); k++)
+        {
+            int s = 0;
+            if (array[i].route[0].x != -1 &&
+                array[i].route[0].y != -1)
+            {
+                for (int m = 0; m < array[i].route.size(); m++)
+                {
+                    if (array[i].route[m].x == array[i].route[m].x && array[i].route[m].y == array[i].route[m].y)
+                        s++;
+                    else break;
+                }
+                if (s < array[i].route.size())
+                {
+                    array[k].route[0].x = -1;
+                    array[k].route[0].y = -1;
+                }
+            }
+        }
+    }
+    //{4,6,3,6,7}
+    //{4,6,3,-1,7}
+    for (int i = 0; i < array.size(); i++)
+    {
+        
+        if (array[i].route[0].x != -1 &&
+            array[i].route[0].y != -1)
+        {
+            cout << "Маршрут " << i + 1 << endl;
+            if (print_table_route)
+            {
+                
+                if (print_on_place)
+                {
+                    cout << setw(3) << 0 << ": point: " << setw(6) << Point_to_string(array[i].route[0]) << "|     step:" << setw(8) << Point_to_string(array[i].step[0]) << endl;
+                    print_area(height, width, array[i].route, 1);
+                    for (int j = 1; j < array[i].route.size(); j++)
+                    {
+
+                        Point A = cursor_position();
+                        cout << setw(3) << j << ": point: " << setw(6) << Point_to_string(array[i].route[j]) << "|     step:" << setw(8) << Point_to_string(array[i].step[j]) << endl;
+                        print_area(height, width, array[i].route, j + 1);
+                        for (int k = 0; k < 10000000; k += 3)
+                        {
+                            k -= 2;
+                            for (int l = 0; l < 40; l += 3)
+                            {
+                                l -= 2;
+                            }
+                        }
+                        erase_past_output(A);
+
+                    }
+
+                }
+                else
+                {
+                    cout << setw(3) << 0 << ": point: " << setw(6) << Point_to_string(array[i].route[0]) << "|     step:" << setw(8) << Point_to_string(array[i].step[0]) << endl;
+                    print_area(height, width, array[i].route, 1);
+                    for (int j = 1; j < array[i].route.size(); j++)
+                    {
+
+                        cout << setw(3) << j << ": point: " << setw(6) << Point_to_string(array[i].route[j]) << "|     step:" << setw(8) << Point_to_string(array[i].step[j]) << endl;
+                        print_area(height, width, array[i].route, j + 1);
+                        
+
+                    }
+                }
+            }
+            else
+            {
+                for (int j = 0; j < array[i].route.size(); j++)
+                {
+
+                    cout << setw(3) << j << ": point: " << setw(6) << Point_to_string(array[i].route[j]) << "|     step:" << setw(8) << Point_to_string(array[i].step[j]) << endl;
+                }
+            }
+            /*cout << "Весь маршрут: " << endl;
+            for (int j = 0; j < array[i].route.size(); j++)
+            {
+                cout << setw(3) << j << ": point: " << setw(6) << Point_to_string(array[i].route[j]) << "|     step:" << setw(6) << Point_to_string(array[i].step[j]) << endl;
+            }*/
+            cout << endl;
+        }
+        
+    }
+
+}
+
 void print_vector_of_vectors(vector <Routes> array)
 {
     for (int i = 0; i < array.size(); i++)
@@ -305,7 +482,7 @@ void print_vector_of_vectors(vector <Routes> array)
                     unique++;
                 m++;
             }
-            
+
         }
         if (unique == 1)
         {
@@ -316,7 +493,7 @@ void print_vector_of_vectors(vector <Routes> array)
             }
             cout << endl;
         }
-        
+
     }
 }
 
@@ -372,6 +549,25 @@ bool in_route(vector <Point> memory, Point A)
     return m;
 }
 
+bool in_T(vector <Point> T)
+{
+    bool m = 0;
+    for (int i = 0; i < T.size(); i++)
+    {
+        for (int j = i; j < T.size(); j++)
+        {
+            if (T[j].x == T[i].x && T[j].y == T[i].y)
+            {
+                m = 1;
+                break;
+            }
+            if (m)
+                break;
+        }
+    }
+    return m;
+}
+
 void print_route(vector <Point> memory)
 {
     for (int i = 0; i < memory.size(); i++)
@@ -395,17 +591,19 @@ vector<vector<Point>>  fill_variants()
     }        
     vector<Point> P = {};
 
-    for (int size = 1; size <= 4; size++)
-    {
-        rec_fill_variants(0, variants, T, size, P);
-    }
+    //for (int size = 1; size <= 4; size++)
+    //{
+    vector <int> indexes;
+    rec_fill_variants(0, 4, indexes, variants, T);
+    //}
 
     return variants;
 }
 
-void rec_fill_variants(int i, vector<vector<Point>>& variants, vector<Point> T, int size, vector <Point>& P)
+void rec_fill_variants(int last, int m, vector<int> indexes, vector<vector<Point>>& variants, vector<Point> T)
 {
-    if (variants.size() == 649)
+    /*
+    /*if (variants.size() == 649)
     {
         cout << endl;
     }
@@ -419,11 +617,50 @@ void rec_fill_variants(int i, vector<vector<Point>>& variants, vector<Point> T, 
         {
             P.push_back(T[i]);
             rec_fill_variants(i, variants, T, size, P);
-            if (P.size() == size)
+            /*if (P.size() == size)
             {
-                variants.push_back(P);
+                
             }
+            
+            variants.push_back(P);
             P.pop_back();
         }
+    }*/
+    if (indexes.size() == m)
+    {
+        vector<Point> P = {};
+        for (int index = 0; index < indexes.size(); index++)
+        {
+            //cout << indexes[index];
+            P.push_back(T[indexes[index]]);
+        }
+        variants.push_back(P);
+        return;
+        //cout << endl;
+    }
+    for (int index = last + 1; index <= T.size(); index++)
+    {
+        indexes.push_back(index - 1);
+        rec_fill_variants(index, m, indexes, variants, T);
+        indexes.pop_back();
     }
 }
+
+/*void combinations(int last, int m, vector <int> b, vector <Point>, vector < pair < set <int>, int> > P)
+{
+    if (b.size() == m)
+    {
+        for (int index = 0; index < b.size(); index++)
+        {
+            cout << b[index];
+        }
+        cout << endl;
+    }
+    for (int index = last + 1; index <= P.size(); index++)
+    {
+        b.push_back(index - 1);
+        combinations(index, m, b, skills_and_salaries, P);
+        b.pop_back();
+    }
+}*/
+

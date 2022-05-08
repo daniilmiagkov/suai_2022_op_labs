@@ -101,5 +101,8 @@
     <ClInclude Include="Skills_and_salaries.h">
       <Filter>labs\lab_4_2</Filter>
     </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

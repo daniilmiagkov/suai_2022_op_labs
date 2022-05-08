@@ -32,7 +32,7 @@ void rang(vector < Character >& characters)
 {
     string parametr;
     char par = ' ';
-    pair <int, int> x_y = cursor_position();
+    Point A = cursor_position();
     cout << "Ранжирование возможно по времени сражению (t) и по проценту оставшегося здоровья (%). \nВыберите вариант: ";
     while (true)
     {
@@ -45,37 +45,8 @@ void rang(vector < Character >& characters)
         else
             cout << "Такого параметра нет, введите другой параметр: ";
     }
-    erase_past_output(x_y);
+    erase_past_output(A);
     sort(characters, characters, par);
-}
-
-void set_cursor_position(int x, int y)
-{
-    COORD coord;
-    coord.X = x;
-    coord.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-
-pair <int, int> cursor_position()
-{
-    CONSOLE_SCREEN_BUFFER_INFO bi;
-    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bi);
-    return make_pair(bi.dwCursorPosition.X, bi.dwCursorPosition.Y);
-}
-
-void erase_past_output(pair <int,int> x_y)
-{
-    CONSOLE_SCREEN_BUFFER_INFO bi;
-    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bi);
-    set_cursor_position(x_y.first, x_y.second);
-    string s = "";
-    for (int i = 0; i < 80; i++)
-        s += " ";
-    for (int i = 0; i < bi.dwCursorPosition.Y - x_y.second; i++)
-        cout << s << endl;
-
-    set_cursor_position(x_y.first, x_y.second);
 }
 
 char input_task()
@@ -133,11 +104,11 @@ unsigned short input_number_enemy(vector <Character> characters)
     return n;
 }
 
-vector <Character> input_team_enemy(vector <Character>& characters,pair <int,int>& x_y)
+vector <Character> input_team_enemy(vector <Character>& characters, Point& A)
 {
     CONSOLE_SCREEN_BUFFER_INFO bi;
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bi);
-    x_y = { bi.dwCursorPosition.X, bi.dwCursorPosition.Y };
+    A = { bi.dwCursorPosition.X, bi.dwCursorPosition.Y };
     cout << "Введите номера персонажей из команды противника по одному. \n";
     string str, s;
     unsigned short a, i = 1;
@@ -169,7 +140,7 @@ vector <Character> input_team_enemy(vector <Character>& characters,pair <int,int
 
 unsigned short input_character_number(unsigned short n)
 {
-    pair <int, int> x_y = cursor_position();
+    Point A = cursor_position();
     cout << "Выберите персонажа противника, напишите его номер: ";
     unsigned short character_number;
     
@@ -181,7 +152,7 @@ unsigned short input_character_number(unsigned short n)
         else
             cout << "Такого номера нет, введите другое число: ";
     }
-    erase_past_output(x_y);
+    erase_past_output(A);
     cout
         << "Номер персонажа =" << setw(count_char(n))
         << character_number << endl
@@ -344,10 +315,10 @@ void fill_vector(vector < Character >& characters, Character max_values)
     }
 }
 
-void print_enemy_team(vector < Character > enemy_team, pair <int, int> x_y)
+void print_enemy_team(vector < Character > enemy_team, Point A)
 {
     
-    erase_past_output(x_y);
+    erase_past_output(A);
     cout << "Команда противника: " << endl;
     sort(enemy_team, '#');
     print_table(enemy_team);
@@ -600,20 +571,20 @@ bool all_equal_to_zero(vector < Character >& team)
 bool Print_or_not_print()
 {
     int a;
-    pair <int, int> x_y = cursor_position();
+    Point A = cursor_position();
     cout << "Введите 1, если печатать, и 0, если нет: ";
     while (true)
     {
         a = input_value(0);
         if (a == 0)
         {
-            erase_past_output(x_y);
+            erase_past_output(A);
             cout << "Вы выбрали не печатать\n";
             return a;
         } 
         else if (a == 1)
         {
-            erase_past_output(x_y);
+            erase_past_output(A);
             cout << "Вы выбрали печатать\n";
             return a;
         }

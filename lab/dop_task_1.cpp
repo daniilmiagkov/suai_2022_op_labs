@@ -8,6 +8,7 @@
 #include "vector"
 #include "Character.h"
 #include "Team.h"
+#include "Point.h"
 
 using std::string;
 using std::cout;
@@ -22,7 +23,7 @@ void dop_task_1()
     SetConsoleOutputCP(1251); // поддержка кириллицы в консоли (ввод)
 
     srand(clock());
-    pair <int, int> x_y;//пара координатов курсора
+    Point A;//пара координатов курсора
 
     
     unsigned short n = input_count_people();// n = количество персонажей  
@@ -36,12 +37,12 @@ void dop_task_1()
     print_table(characters);
 
     //команда или один человек
-    x_y = cursor_position();
+    A = cursor_position();
     char task = input_task();
     
     if (task == 'A')
     {
-        erase_past_output(x_y);
+        erase_past_output(A);
         cout << "Игра 1x1" << endl;
         
         unsigned short character_number = input_character_number(n);//получение номера противника
@@ -60,12 +61,12 @@ void dop_task_1()
     }
     else
     {
-        erase_past_output(x_y);
+        erase_past_output(A);
         cout << "Игра 3х3" << endl;
         
-        vector <Character> enemy_team = input_team_enemy(characters, x_y);
+        vector <Character> enemy_team = input_team_enemy(characters, A);
         
-        print_enemy_team(enemy_team, x_y);
+        print_enemy_team(enemy_team, A);
         print_table(characters);
         vector <Character> team;
         vector <vector < Character >> teams;
