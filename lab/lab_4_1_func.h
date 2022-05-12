@@ -10,14 +10,14 @@ using std::cout;
 using std::cin;
 using std::vector;
 
-struct Values
+struct Value
 {
-    boolean debugging = 0;
+    bool debugging = 0;
 };
 
 void calculation(vector <vector <long long>> &matrix);
 
-int find_time(unsigned int n, unsigned int size);
+int find_time(unsigned int size);
 
 void print_vector_two_dimensional_4_1(vector <vector <long long>> matrix);
 

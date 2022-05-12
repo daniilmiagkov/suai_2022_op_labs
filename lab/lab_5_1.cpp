@@ -43,23 +43,7 @@ void lab_5_1()
     cout << endl;
     bool sum;
     int index;
-    for (int i = 0; i < N - 1; i++)
-    {
-        if (sequence[i] != 0 || sequence[i + 1] != 0)
-        {
-            sum = sequence[i] ^ sequence[i + 1];
-            index = i;
-            break;
-        }
-    }
-    for (int i = index; i < N - 1; i++)
-    {
-        if (sequence[i] != 0 || sequence[i + 1] != 0)
-        {
-            sum = sum ^ sequence[i];
-        }
-    }
-    cout << sum;
+    
     
 }
 

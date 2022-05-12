@@ -18,31 +18,22 @@ using std::endl;
 using std::fixed;
 using std::setprecision; //подключение пространства имен std
 
-int find_time(unsigned int n, unsigned int size)
+int find_time(unsigned int size)
 {
     int start_time, end_time, time = 0;
-    Values value;
-    for (int h = 0; h < n; h++)
-    {
+    Value value;
         srand(clock());
         unsigned int N, P;
 
-        if (size == 0)
-        {
-            N = rand() % 5 + 2;
-        }
-        else N = size;
-        if (size == 100)
-        {
-            N = rand() % 5 + 2;
-        }
+        
+        N = size;
         P = N + 1;
 
         vector <vector <long long>> matrix(N, vector<long long>(P, 0));
         vector <double> matrix_x(N);
         fill(matrix);
 
-        if (value.debugging == 0)
+        if (value.debugging == 1)
         {
             cout << "исходная матрица:" << endl;
             print_vector_two_dimensional_4_1(matrix);
@@ -71,7 +62,7 @@ int find_time(unsigned int n, unsigned int size)
             }
         }
         matrix.clear();
-    }
+    
     return time;
 }
 
@@ -80,8 +71,8 @@ void calculation(vector <vector <long long>> &matrix)
     vector <long long> output_matrix(matrix.size());
     long long  base, element_i, coefficient;
     int l = 1;
-    boolean final = 1;
-    Values value;
+    bool final = 1;
+    Value value;
     for (int k = 0; k < matrix.size() - 1; k++)
     {
 
@@ -94,32 +85,35 @@ void calculation(vector <vector <long long>> &matrix)
             }
             for (int i = k + 1; i < matrix.size(); i++)
             {
-                for (int j = k; j < matrix[i].size(); j++)
+                if (matrix[i][k] != 0)
                 {
-                    if (matrix[i][j] != 0)
+                    for (int j = k; j < matrix[i].size(); j++)
+                    {
                         swap(matrix[k][j], matrix[i][j]);
-                    else
-                        l++;
-                }
+                    }
 
-                if (l == matrix.size() - k)
-                {
-                    final = 0;
-                    if (value.debugging == 0)                    
-                        cout << "матрица вырожденная, значит имеет бесконечно много решений!" << endl;
-                        print_vector_two_dimensional_4_1(matrix);
-                    break;
-                    exit(0);
-                }
-
-                if (matrix[k][k] != 0)
-                {
                     if (value.debugging == 1)
                     {
                         cout << "матрица после перестановки строк:" << endl;
                         print_vector_two_dimensional_4_1(matrix);
                     }
                     break;
+                }
+                else
+                    l++;
+
+
+                if (l == matrix.size() - k)
+                {
+                    final = 0;
+                    if (value.debugging == 1)
+
+                    {
+                        cout << "матрица вырожденная, значит имеет бесконечно много решений!" << endl;
+                        print_vector_two_dimensional_4_1(matrix);
+                    }
+                    break;
+                    exit(0);
                 }
             }
         }
