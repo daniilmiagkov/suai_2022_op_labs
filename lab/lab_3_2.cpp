@@ -5,8 +5,6 @@
 #include "main_header.h"
 #include "string"
 #include "vector"
-#include <set>
-#include <iterator>
 #include "Point.h"
 
 using namespace std; //подключение пространства имен std
