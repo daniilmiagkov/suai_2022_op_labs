@@ -5,15 +5,13 @@
 #include "main_header.h"
 #include "string"
 #include "vector"
-#include <set>
-#include <iterator>
 #include "Point.h"
 
 using namespace std; //подключение пространства имен std
 
 struct Values
 {
-    bool p_o_n_p_intermediate_values = 0,
+    bool p_o_n_p_intermediate_values = 1,
         print_or_not_print_find_array = 1,
         p_o_n_p_final_values = 1;
 
@@ -46,7 +44,7 @@ void lab_3_2()
 
     Values values;
 
-    int call_count = 0, deep_level = 0, max_deep_level = 0, height = 4, width = 4, count = 0;
+    int call_count = 0, deep_level = 0, max_deep_level = 0, height = 2, width = 3, count = 0;
     /*
     cout << "Введите размеры поля \nВведите height: ";
     int height = get_number<int>();
@@ -58,8 +56,8 @@ void lab_3_2()
     vector <int> levels = {};
     vector <Routes> routes = {};
     //T = { {2, 1},{-2, -1},{1, 2},{-1, -2} };
-    //T = { {0, 1},{0, -1},{1, 0},{-1, 0} };
-    T = { {0, 1}, {0, -1},{-1, 0},{2, 1} };
+    T = { {0, 1},{0, -1},{1, 0},{-1, 0} };
+   // T = { {0, 1}, {0, -1},{-1, 0},{2, 1} };
 
         
     /*cout << "Введите (Ax,Ay)\nВведите A.x: ";
