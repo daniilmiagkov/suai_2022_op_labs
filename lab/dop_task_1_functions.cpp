@@ -8,8 +8,7 @@
 #include "Character.h"
 #include "Team.h"
 
-
-
+//ввод количества людей
 unsigned short input_count_people()
 {
     
@@ -28,6 +27,7 @@ unsigned short input_count_people()
     return n;
 }
 
+//ранжирование
 void rang(vector < Character >& characters)
 {
     string parametr;
@@ -49,6 +49,7 @@ void rang(vector < Character >& characters)
     sort(characters, characters, par);
 }
 
+//ввод номера задания
 char input_task()
 {
     string ch = "B";
@@ -67,6 +68,7 @@ char input_task()
     return ch[0];
 }
 
+//возвращает индекс или -1 если человека с таким номером нет в массиве
 short find_vec(vector <Character> characters, unsigned short temp)
 {
     short f = -1;
@@ -81,7 +83,8 @@ short find_vec(vector <Character> characters, unsigned short temp)
     return f;
 }
 
-unsigned short input_number_enemy(vector <Character> characters)
+//рандомное получение номера персонажа 
+unsigned short rand_input_number_enemy(vector <Character> characters)
 {
     unsigned short n;
     boolean final;
@@ -104,6 +107,7 @@ unsigned short input_number_enemy(vector <Character> characters)
     return n;
 }
 
+//ввод номеров персонажей команды противника
 vector <Character> input_team_enemy(vector <Character>& characters, Point& A)
 {
     CONSOLE_SCREEN_BUFFER_INFO bi;
@@ -118,7 +122,7 @@ vector <Character> input_team_enemy(vector <Character>& characters, Point& A)
     cout << "Введите номер " << i << " персонажа: ";
     while (true)
     {
-        a = input_value(input_number_enemy(characters));
+        a = input_value(rand_input_number_enemy(characters));
 
         in_vec = find_vec(characters, a);
         if (in_vec != -1)
@@ -138,6 +142,7 @@ vector <Character> input_team_enemy(vector <Character>& characters, Point& A)
     return team;
 }
 
+//ввод номера персонажа
 unsigned short input_character_number(unsigned short n)
 {
     Point A = cursor_position();
@@ -162,12 +167,14 @@ unsigned short input_character_number(unsigned short n)
     return character_number;
 }
 
+//перенос строки
 void print_enter(unsigned short n)
 {
     for (int i = 0; i < n; i++)
         cout << endl;
 }
 
+//сортировка двух массивов
 void sort(vector < Character >& characters_1, vector < Character >& characters_2, char parametr)
 {
         switch (parametr)
@@ -202,6 +209,7 @@ void sort(vector < Character >& characters_1, vector < Character >& characters_2
         }
 }
 
+//сортировка одного массива
 void sort(vector < Character >& characters, char parametr)
 {
     switch (parametr)
@@ -261,6 +269,7 @@ void sort(vector < Character >& characters, char parametr)
     }
 }
 
+//заполнение максимальных значений 
 Character fill_max(unsigned short n)
 {
     Character max_values;
@@ -284,7 +293,8 @@ Character fill_max(unsigned short n)
     return max_values;
 }
 
-void fill_vector(vector < Character >& characters, Character max_values)
+//заполнение массива персонажей
+void fill_vector(vector < Character >& characters, Character max_values) 
 {
     for (int i = 0; i < characters.size(); i++)
     {
@@ -315,6 +325,7 @@ void fill_vector(vector < Character >& characters, Character max_values)
     }
 }
 
+//печать команды противника
 void print_enemy_team(vector < Character > enemy_team, Point A)
 {
     
@@ -322,8 +333,9 @@ void print_enemy_team(vector < Character > enemy_team, Point A)
     cout << "Команда противника: " << endl;
     sort(enemy_team, '#');
     print_table(enemy_team);
-}
+} 
 
+//печать тире
 void print_dash()
 {
     Character values;
@@ -378,6 +390,7 @@ void print_dash()
     cout << endl;
 }
 
+//печать максимальных значений 
 void print_max(Character max_values)
 {
 
@@ -396,6 +409,7 @@ void print_max(Character max_values)
     print_enter(1);
 }
 
+//печать линии 
 void print_line(Character character)
 {
     cout
@@ -413,6 +427,7 @@ void print_line(Character character)
     print_dash();
 }
 
+//печать заголовка
 void print_title()
 {
     Character character;
@@ -433,6 +448,7 @@ void print_title()
     print_enter(1);
 }
 
+//печать массива персонажей
 void print_table(vector < Character > characters)
 {
     print_title();
@@ -445,6 +461,7 @@ void print_table(vector < Character > characters)
     print_enter(1);
 }
 
+//нахождение победителя при одиночном бое
 void find_winner_solo(vector < Character >& characters, Character character_enemy)
 {
     int time;
@@ -528,7 +545,8 @@ void find_winner_solo(vector < Character >& characters, Character character_enem
     }
 }
 
-void combinations(int last, vector < Character >& team, vector <vector < Character >>& teams, vector < Character >& characters)
+//нахождение массива комманд 
+void find_array_team(int last, vector < Character >& team, vector <vector < Character >>& teams, vector < Character >& characters)
 {
     if (team.size() == 3)
     {
@@ -537,12 +555,12 @@ void combinations(int last, vector < Character >& team, vector <vector < Charact
     for (int index = last + 1; index <= characters.size(); index++)
     {
         team.push_back(characters[index - 1]);
-        combinations(index, team, teams, characters);
+        find_array_team(index, team, teams, characters);
         team.pop_back();
     }
 }
 
-
+//нахождение персонажа с максимальной силой
 unsigned short find_max_in_vector(vector < Character > characters)
 {
     unsigned short max_index = 0;
@@ -554,6 +572,7 @@ unsigned short find_max_in_vector(vector < Character > characters)
     return max_index;
 }
 
+//проверка на все нули в уроне
 bool all_equal_to_zero(vector < Character >& team)
 {
     bool temp = 1;
@@ -568,6 +587,7 @@ bool all_equal_to_zero(vector < Character >& team)
     return temp;
 }
 
+//печатать или не печатать
 bool Print_or_not_print()
 {
     int a;
@@ -593,6 +613,7 @@ bool Print_or_not_print()
     }
 }
 
+//нахождение комманд которые победили
 void find_winner_team(vector <vector < Character >>& teams, vector < Character >& team_enemy)
 {
     int time;
@@ -669,9 +690,9 @@ void find_winner_team(vector <vector < Character >>& teams, vector < Character >
                         team_fantom[j].disable = 0;
                         for (int k = 0; k < team_fantom[j].rival; k++)
                         {
-                            if (k == team_fantom_enemy.size())
-                                break;
                             team_fantom_enemy[k].damage = team_fantom_enemy_const[k].damage;
+                            if (k == team_fantom_enemy.size() - 1)
+                                break;
                         }
                         team_fantom[j].interval--;
                     }
@@ -731,7 +752,7 @@ void find_winner_team(vector <vector < Character >>& teams, vector < Character >
                         team_fantom_enemy[j].disable = 0;
                         for (int k = 0; k < team_fantom_enemy[j].rival; k++)
                         {
-                            if (k == team_fantom.size())
+                            if (k == team_fantom.size() - 1)
                                 break;
                             team_fantom[k].damage = team_fantom_const[k].damage;
                         }
@@ -780,6 +801,7 @@ void find_winner_team(vector <vector < Character >>& teams, vector < Character >
     }
 }
 
+//уменьшение здоровья
 void decrease_health(
     vector < Character >& team_2, 
     vector < Character >& team_1, 
@@ -821,6 +843,7 @@ void decrease_health(
 
 }
 
+//смерть
 void die(Character& character)
 {
     character.damage = 0;
@@ -831,6 +854,7 @@ void die(Character& character)
     character.percent = 0;
 }
 
+//печать комманд 
 void print_teams(vector < Character >& team_fantom, vector < Character >& team_fantom_enemy)
 {
     cout << "наши" << endl;

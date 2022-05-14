@@ -24,7 +24,7 @@ Character fill_max(unsigned short n);
 
 vector <Character> input_team_enemy(vector <Character>& characters, Point& A);
 
-unsigned short input_number_enemy(vector <Character> characters);
+unsigned short rand_input_number_enemy(vector <Character> characters);
 
 short find_vec(vector <Character> characters, unsigned short temp);
 
@@ -54,7 +54,7 @@ void print_enemy_team(vector < Character > enemy_team, Point A);
 
 void print_table(vector < Character > characters);
 
-void combinations(int last, vector < Character >& team, vector <vector < Character >>& teams, vector < Character >& characters);
+void find_array_team(int last, vector < Character >& team, vector <vector < Character >>& teams, vector < Character >& characters);
 
 void print_all_teams(vector <vector < Character >>& teams);
 

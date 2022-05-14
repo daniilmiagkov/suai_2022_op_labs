@@ -70,7 +70,7 @@ void dop_task_1()
         print_table(characters);
         vector <Character> team;
         vector <vector < Character >> teams;
-        combinations(0, team, teams, characters);
+        find_array_team(0, team, teams, characters);
         //print_teams(teams);
         find_winner_team(teams, enemy_team);
         
