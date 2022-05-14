@@ -1,14 +1,15 @@
-﻿/*#include <iostream>// ����������
+﻿#include <iostream>// библиотека
 #include <iomanip>
-#include <Windows.h> // ����������
+#include <Windows.h> // библиотека
 #include "various_functions.h"
 #include "main_header.h"
 #include "string"
 #include "vector"
 #include <set>
 #include <iterator>
+#include "Point.h"
 
-using namespace std; //����������� ������������ ���� std
+using namespace std; //подключение пространства имен std
 
 void print_vector_of_vectors(vector <vector <Point>> array);
 string print_Point(Point A);
@@ -20,17 +21,17 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
 
 void lab_3_2_copy()
 {
-    setlocale(0, ""); // ��������� ��������� � ������� (�����)
-    SetConsoleCP(1251); // ��������� ��������� � ������� (����)
-    SetConsoleOutputCP(1251); // ��������� ��������� � ������� (����)
+    setlocale(0, ""); // поддержка кириллицы в консоли (вывод)
+    SetConsoleCP(1251); // поддержка кириллицы в консоли (ввод)
+    SetConsoleOutputCP(1251); // поддержка кириллицы в консоли (ввод)
 
     int call_count = 0, deep_level = 0, max_deep_level = 0, height = 3, wight = 3;
     /*
-    cout << "������� ������� ���� \n������� height: ";
+    cout << "Введите размеры поля \nВведите height: ";
     int height = get_number<int>();
-    cout << "������� wight: ";
+    cout << "Введите wight: ";
     int wight = get_number<int>();
-    
+    */
     vector <Point> T, answer = {};
 
     /*for (int j = 0; j < 4; j++)
@@ -38,37 +39,37 @@ void lab_3_2_copy()
         vector<int> tmp;
         for (int j = 0; j < 2; j++)
         {
-            cout << "������� " << j << " ������� " << j << "�������� ������� T: ";
+            cout << "Введите " << j << " элемент " << j << "элемента массива T: ";
             tmp.push_back(get_number<int>());
         }
         T.push_back(tmp);
-    }
+    }*/
 
     //T = { {2, 1},{-2, -1},{1, 2},{-1, -2} };
     //T = { {0, 1},{0, -1},{1, 0},{-1, 0} };
     T = { {0, 1}, {0, -1},{1,0} };
-    //�������� ���� ��������
+    //создание двух массивов
     vector <Point> memory = {};
     vector <int> levels = {};
     vector <vector <Point>> routes = {};
     Point A = { 1,1 };
-    /*cout << "������� (Ax,Ay)\n������� A.x: ";
+    /*cout << "Введите (Ax,Ay)\nВведите A.x: ";
     A.x = get_number<int>();
-    cout << "������� A.y: ";
+    cout << "Введите A.y: ";
     A.y = get_number<int>();
-    
+    */
 
     int count = 0;
     int i = 0;
     cout
-        << "\n���������� �������:| �������:| ��������:"
+        << "\nКоличество вызовов:| Глубина:| Значение:"
         << endl;
     find_route_old(routes, wight, height, T, answer, A, count, call_count, memory, deep_level, levels, max_deep_level);
     if (routes.size() != 0)
     {
         print_vector_of_vectors(routes);
     }
-    else cout << "����������";
+    else cout << "Невозможно";
 
 }
 
@@ -79,9 +80,9 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
     deep_level++;
     //print_vector_of_vectors(route); 
 
-    levels.push_back(deep_level - 1);//������ � ������ ������ ������� 
+    levels.push_back(deep_level - 1);//запись в массив уровня глубины 
 
-    route.push_back(A);//������ � ������ �������� ����� 
+    route.push_back(A);//запись в массив значения числа 
     memory.push_back(A);
     print_string_old(call_count, deep_level - 1, route);
 
@@ -89,26 +90,26 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
     {
         //levels.pop_back();
         //route.pop_back();
-        cout << "\n����� �� �������. \n";
+        cout << "\nВышли за границы. \n";
         return 0;
     }
 
     if (deep_level > max_deep_level)
     {
-        max_deep_level = deep_level - 1;//���������� ������������ ������� 
+        max_deep_level = deep_level - 1;//нахождение максимальной глубины 
     }
 
     if (in_memory_old(route, A))
     {
         //A.x -= T[j].x;
         //A.y -= T[j].y;
-        cout << "\n��������� � ���� �� ���������� �����. \n";
+        cout << "\nВернулись в одну из предыдущих точек. \n";
         return 0;
     }
 
     if (wight * height == route.size())
     {
-        cout << "\n����� ����!";
+        cout << "\nНашли путь!";
 
         return 1;
     }
@@ -123,7 +124,7 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
 
         if (find_route_old(routes, wight, height, T, route, A, count, call_count, memory, deep_level, levels, max_deep_level))
         {
-            cout << "\n����:\n";
+            cout << "\nПуть:\n";
 
             route.push_back(A);
             print_route_old(route);
@@ -132,7 +133,7 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
 
             if (i != T.size() - 1)
 
-                cout << "���� ������:" << endl;
+                cout << "Идем дальше:" << endl;
             //route.pop_back();
             //route.push_back(A);
             //break;
@@ -143,13 +144,13 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
 
             if (i < T.size() - 1)
             {
-                cout << "���� �� ���������� ���: \n";
-                //cout << "����� � ������� ���������:" << endl;
+                cout << "Идем на предыдущий шаг: \n";
+                //cout << "Точка в которую вернулись:" << endl;
                 print_string_old(call_count, deep_level - 1, route);
-                cout << "\n���� �������:" << endl;
+                cout << "\nВесь маршрут:" << endl;
                 print_route_old(route);
 
-                cout << "���� ������:" << endl;
+                cout << "Идем дальше:" << endl;
             }
 
 
@@ -160,7 +161,7 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
         A.y -= T[i].y;
 
     }
-    cout << "����������� �������� ���������� ���� ��� ����� " << print_Point(A) << ".  \n\n";
+    cout << "Закончились варианты следующего пути для точки " << print_Point(A) << ".  \n\n";
     return 0;
 }
 
@@ -168,7 +169,7 @@ void print_vector_of_vectors(vector <vector <Point>> array)
 {
     for (int i = 0; i < array.size(); i++)
     {
-        cout << "������� " << i + 1 << endl;
+        cout << "Маршрут " << i + 1 << endl;
         for (int j = 0; j < array[i].size(); j++)
         {
             cout << j << ": " << print_Point(array[i][j]) << endl;
@@ -221,4 +222,4 @@ void print_route_old(vector <Point> memory)
         print_string_old(i, memory[i]);
     }
     cout << endl;
-}*/
+}
