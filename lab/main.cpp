@@ -8,9 +8,9 @@ int main()
     //lab_2_2();
     //lab_4_2();
     //lab_4_1();
-    dop_task_1();
+    //dop_task_1();
     //lab_3_1();
     //lab_3_2();
-    //lab_3_2_copy();
+    lab_3_2_copy();
     return 0;
 }

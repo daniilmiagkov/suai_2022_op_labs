@@ -71,7 +71,7 @@ void dop_task_1()
         vector <Character> team;
         vector <vector < Character >> teams;
         find_array_team(0, team, teams, characters);
-        //print_teams(teams);
+        //print__all_teams(teams);
         find_winner_team(teams, enemy_team);
         
     }

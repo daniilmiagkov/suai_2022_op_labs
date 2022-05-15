@@ -56,13 +56,13 @@ void print_table(vector < Character > characters);
 
 void find_array_team(int last, vector < Character >& team, vector <vector < Character >>& teams, vector < Character >& characters);
 
-void print_all_teams(vector <vector < Character >>& teams);
+//void print_all_teams(vector <vector < Character >>& teams);
 
 void find_winner_team(vector <vector < Character >>& teams, vector < Character >& enemy_team);
 
 unsigned short find_max_in_vector(vector < Character > characters);
 
-void decrease_health(vector < Character >& team_fantom, vector < Character >& team_fantom_enemy, vector < Character >& team_intermediate, vector < Character >& team_const);
+void decrease_health(vector < Character >& team_2, vector < Character >& team_1);
 
 void print_teams(vector < Character >& team_fantom, vector < Character >& team_enemy_fantom);
 

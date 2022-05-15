@@ -640,8 +640,10 @@ void find_winner_team(vector <vector < Character >>& teams, vector < Character >
         while (true)
         {
             time++;
-
-
+            if (team_fantom.size() < 3 || team_fantom_enemy.size() < 3)
+            {
+                cout << 1;
+            }
             if (p_o_n_p == 1)
             {
                 cout << "time =" << setw(3) << time << endl;
@@ -774,8 +776,8 @@ void find_winner_team(vector <vector < Character >>& teams, vector < Character >
             if (p_o_n_p == 1)
                 print_teams(team_fantom, team_fantom_enemy);
 
-            decrease_health( team_fantom, team_fantom_enemy, team_fantom_intermediate, team_fantom_const);
-            decrease_health( team_fantom_enemy, team_fantom, team_fantom_enemy_intermediate, team_fantom_enemy_const);
+            //decrease_health( team_fantom, team_fantom_enemy, team_fantom_intermediate, team_fantom_const);
+            //decrease_health( team_fantom_enemy, team_fantom, team_fantom_enemy_intermediate, team_fantom_enemy_const);
 
 
             for (int j = 0; j < team_fantom.size(); j++)
@@ -802,28 +804,23 @@ void find_winner_team(vector <vector < Character >>& teams, vector < Character >
 }
 
 //уменьшение здоровья
-void decrease_health(
-    vector < Character >& team_2, 
-    vector < Character >& team_1, 
-    vector < Character >& team_intermediate,
-    vector < Character >& team_const)
+void decrease_health(vector < Character >& team_2, vector < Character >& team_1)
 {
-    byte dies = 0;
     for (int j = 0; j < team_1.size(); j++) //перебираем всех в нашей команде
     {
         for (int k = 0; k < team_1[j].rival; k++) //отнимаем здоровье у противников
-        {
-            if (k == team_1.size())
-                break;
-            team_2[k].health -= team_1[j].damage;
-            if (team_2[k].health <= 0 && team_2[k].die == 0)
+        {     
+            if (team_2[k].health > 0)
             {
-                team_2[k].die = 1;
-                dies++;
+                team_2[k].health -= team_1[j].damage;
+                if (team_2[k].health <= 0)
+                {
+                    k++;
+                }
             }
         }
     }
-    if (dies > 0)
+    /*if (dies > 0)
     {
         sort(team_2, team_const, 'h');
         int k = team_2.size() - 1;
@@ -831,15 +828,15 @@ void decrease_health(
         {
             if (team_2[k].health <= 0)
             {
-                die(team_2[k]);
-                print_table(team_2);
-                team_intermediate = team_2;
-                team_2.pop_back();
-                team_const.pop_back();
+                //die(team_2[k]);
+                //print_table(team_2);
+                //team_intermediate = team_2;
+                //team_2.pop_back();
+                //team_const.pop_back();
             } 
             k--;
         }
-    }
+    }*/
 
 }
 
