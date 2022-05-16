@@ -35,7 +35,7 @@ void erase_past_output(Point A)
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &bi);
 	set_cursor_position(A);
 	string s = "";
-	for (int i = 0; i < 80; i++)
+	for (int i = 0; i < 90; i++)
 		s += ' ';
 	for (int i = 0; i < bi.dwCursorPosition.Y - A.y; i++)
 		cout << s << endl;

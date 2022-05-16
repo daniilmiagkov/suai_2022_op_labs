@@ -11,16 +11,22 @@ using std::pair;
 
 template <typename T>
 T get_number_input_after(string str);
+
 template <typename T>
 T input_value(T a);
+
 template <typename T>
 T get_number();
+
 template <typename T>
 bool check(string str);
+
 template <typename T>
 bool check_without_print(string str);
+
 template <typename T>
 T str_to_number(string str);
+
 string char_to_string(char ch);
 
 Point cursor_position();
@@ -99,81 +105,82 @@ template <typename T>
 bool check(string str)
 {
     bool k = 1;
-    
-        if ((str.find('-') < 1 || str.find('-') == -1) && ((str.find('.') < str.size() - 1 && str.find('.') > 0) || str.find('.') == -1))
+    string s = typeid(T).name();
+
+    if ((str.find('-') < 1 || str.find('-') == -1) && ((str.find('.') < str.size() - 1 && str.find('.') > 0) || str.find('.') == -1))
+    {
+        if (str.length() > 1)
         {
-            if (str.length() > 1)
+            int count_minus = 0, count_point = 0;
+            for (int i = 0; i < str.length(); i++)
             {
-                int count_minus = 0, count_point = 0;
-                for (int i = 0; i < str.length(); i++)
+                if (str[i] == '-')
                 {
-                    if (str[i] == '-')
-                    {
-                        count_minus++;
-                    }
-                    if (str[i] == '.')
-                    {
-                        count_point++;
-                    }
+                    count_minus++;
                 }
-                if ((str[0] == '0' && str[1] != '.') || count_point > 1 ||
-                    (str[0] == '-' && str[1] == '.') ||
-                    (str[0] == '-' && str[1] == '0' && str[2] != '.') || count_minus > 1)
+                if (str[i] == '.')
                 {
-                    k *= 0;
-                    std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+                    count_point++;
                 }
             }
-            else
-                if (str == "-")
-                {
-                    k *= 0;
-                    std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
-                }
-            if (k == 1)
+            if ((str[0] == '0' && str[1] != '.') || count_point > 1 ||
+                (str[0] == '-' && str[1] == '.') ||
+                (str[0] == '-' && str[1] == '0' && str[2] != '.') || count_minus > 1)
             {
-                string s = typeid(T).name();
-                if (s == "double")
-                {
-                    for (int i = 0; i < str.length(); i++)
-                    {
-                        if ((str[i] < '0' || str[i] > '9') && str[i] != '.' && str[i] != '-')
-                        {
-                            k *= 0;
-                            std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
-                            break;
-                        }
-                    }
-                }
-                if (s == "int")
-                {
-                    for (int i = 0; i < str.length(); i++)
-                    {
-                        if ((str[i] < '0' || str[i] > '9') && str[i] != '-')
-                        {
-                            k *= 0;
-                            std::cout << "!!Вы ввели не целое число!!" << std::endl << "Введитe целое число: ";
-                            break;
-                        }
-                    }
-                }
-                if (s == "bool")
-                {
-                    if (str[0] != '0' && str[0] != '1')
-                    {
-                        k *= 0;
-                        std::cout << "!!Вы ввели не двоичное число!!" << std::endl << "Введитe двоичное число: ";
-                    }
-                    
-                }
+                k *= 0;
+                std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
             }
         }
         else
+            if (str == "-")
+            {
+                k *= 0;
+                std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+            }
+        if (k == 1)
+        {
+            if (s == "double")
+            {
+                for (int i = 0; i < str.length(); i++)
+                {
+                    if ((str[i] < '0' || str[i] > '9') && str[i] != '.' && str[i] != '-')
+                    {
+                        k *= 0;
+                        std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+                        break;
+                    }
+                }
+            }
+            if (s == "int")
+            {
+                for (int i = 0; i < str.length(); i++)
+                {
+                    if ((str[i] < '0' || str[i] > '9') && str[i] != '-')
+                    {
+                        k *= 0;
+                        std::cout << "!!Вы ввели не целое число!!" << std::endl << "Введитe целое число: ";
+                        break;
+                    }
+                }
+            }
+                
+        }
+        
+    }
+    else
+    {
+        k *= 0;
+        std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+    }
+    
+    if (s == "bool")
+    {
+        if ((str[0] < '0' || str[0] > '1') || str.size() > 1)
         {
             k *= 0;
-            std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
+            std::cout << "!!Вы ввели не булево число!!" << std::endl << "Введитe булево число: ";
         }
-   
+    }
     return k;
 }
 
@@ -181,6 +188,8 @@ template <typename T>
 bool check_without_print(string str)
 {
     bool k = 1;
+    string s = typeid(T).name();
+
     // 67642.5423
     //проверка на возможность существования такого числа
     if ((str.find('-') < 1 || str.find('-') == -1) && ((str.find('.') < str.size() - 1 && str.find('.') > 0) || str.find('.') == -1))
@@ -208,7 +217,6 @@ bool check_without_print(string str)
                 (str[0] == '-' && str[1] == '0' && str[2] != '.') || count_minus > 1)
             {
                 k *= 0;
-                std::cout << "!!Вы ввели не число!!" << std::endl << "Введитe число: ";
             }
         }
         else
@@ -218,7 +226,6 @@ bool check_without_print(string str)
             }
         if (k == 1)
         {
-            string s = typeid(T).name();
             if (s == "double")
             {
                 for (int i = 0; i < str.length(); i++)
@@ -247,7 +254,14 @@ bool check_without_print(string str)
     {
         k *= 0;
     }
-
+    if (s == "bool")
+    {
+        if ((str[0] < '0' || str[0] > '1') && str.size() > 1)
+        {
+            k *= 0;
+            std::cout << "!!Вы ввели не булево число!!" << std::endl << "Введитe булево число: ";
+        }
+    }
     return k;
 }
 

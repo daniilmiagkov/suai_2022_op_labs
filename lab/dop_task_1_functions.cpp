@@ -13,7 +13,7 @@ unsigned short input_count_people()
 {
     
     short n = 10, n_max = 30;
-    /*cout << "Введите количество человек, не менее 10: ";
+    cout << "Введите количество человек, не менее 10: ";
     while (true)
     {
         n = input_value(rand() % n_max + 10);
@@ -22,7 +22,7 @@ unsigned short input_count_people()
         else
             cout << "Количество человек не может быть < 10, \nвведите другое число: ";
     }
-    erase_past_output(make_pair(0,0));*/
+    erase_past_output({0,0});
     cout << "Количество человек =" << setw(count_char(n_max)) << n << endl;
     return n;
 }
@@ -37,23 +37,32 @@ void rang(vector < Character >& characters)
     while (true)
     {
         cin >> parametr;
-        if (parametr == "t" || parametr == "%")
+        if (parametr == "t")
         {
+            erase_past_output(A);
+            cout << "Вы выбрали ранжирование по времени сражению" << endl;
+            par = parametr[0];
+            break;
+        }
+        if (parametr == "%")
+        {            
+            erase_past_output(A);
+            cout << "Вы выбрали ранжирование по по проценту оставшегося здоровья" << endl;
             par = parametr[0];
             break;
         }
         else
             cout << "Такого параметра нет, введите другой параметр: ";
     }
-    erase_past_output(A);
-    sort(characters, characters, par);
+    
+    sort(characters, par);
 }
 
 //ввод номера задания
 char input_task()
 {
     string ch = "B";
-    /*cout << "Введите букву варианта задания (А - 1x1, B - 3x3): ";
+    cout << "Введите букву варианта задания (А - 1x1, B - 3x3): ";
 
     while (true)
     {
@@ -64,7 +73,7 @@ char input_task()
     }
     
     //cin.ignore(1,'\n');
-    */
+    
     return ch[0];
 }
 
@@ -519,16 +528,16 @@ void find_winner_solo(vector < Character >& characters, Character character_enem
                 }
 
             }
-            //cout << "time = " << setw(5) << time << endl;
+            cout << "time = " << setw(5) << time << endl;
 
             characters[i].time_fight = time;
             character_fantom.time_fight = time;
             //P[i].health -= character_enemy_fantom.damage;
             character_fantom.health -= character_enemy_fantom.damage;
             character_enemy_fantom.health -= character_fantom.damage;
-            //print_line(character_fantom);
-            //print_line(character_enemy_fantom);
-            //cout << endl;
+            print_line(character_fantom);
+            print_line(character_enemy_fantom);
+            cout << endl;
 
         }
         if (character_fantom.health - character_enemy_fantom.damage <= 0)
