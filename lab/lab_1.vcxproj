@@ -165,7 +165,6 @@
     <ClInclude Include="lab_4_2_functions.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Skills_and_salaries.h" />
-    <ClInclude Include="Team.h" />
     <ClInclude Include="various_functions.h" />
     <ClInclude Include="main_header.h" />
   </ItemGroup>

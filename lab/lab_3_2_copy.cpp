@@ -23,46 +23,27 @@ void lab_3_2_copy()
     SetConsoleCP(1251); // поддержка кириллицы в консоли (ввод)
     SetConsoleOutputCP(1251); // поддержка кириллицы в консоли (ввод)
 
-    int call_count = 0, deep_level = 0, max_deep_level = 0, height = 3, wight = 3;
-    /*
-    cout << "Введите размеры поля \nВведите height: ";
-    int height = get_number<int>();
-    cout << "Введите wight: ";
-    int wight = get_number<int>();
-    */
-    vector <Point> T, answer = {};
+    int call_count = 0, deep_level = 0, max_deep_level = 0, height = 4, wight = 4;
 
-    /*for (int j = 0; j < 4; j++)
-    {
-        vector<int> tmp;
-        for (int j = 0; j < 2; j++)
-        {
-            cout << "Введите " << j << " элемент " << j << "элемента массива T: ";
-            tmp.push_back(get_number<int>());
-        }
-        T.push_back(tmp);
-    }*/
+    vector <Point> T, route;
 
-    //T = { {2, 1},{-2, -1},{1, 2},{-1, -2} };
+    T = { {2, 1},{-2, -1},{1, 2},{-1, -2} };
     //T = { {0, 1},{0, -1},{1, 0},{-1, 0} };
-    T = { {0, 1}, {0, -1},{1,0} };
+    //T = { {0, 1}, {0, -1},{1,0} };
+
     //создание двух массивов
     vector <Point> memory = {};
     vector <int> levels = {};
     vector <vector <Point>> routes = {};
     Point A = { 1,1 };
-    /*cout << "Введите (Ax,Ay)\nВведите A.x: ";
-    A.x = get_number<int>();
-    cout << "Введите A.y: ";
-    A.y = get_number<int>();
-    */
 
     int count = 0;
     int i = 0;
     cout
         << "\nКоличество вызовов:| Глубина:| Значение:"
         << endl;
-    find_route_old(routes, wight, height, T, answer, A, count, call_count, memory, deep_level, levels, max_deep_level);
+    find_route_old(routes, wight, height, T, route, A, count, call_count, memory, deep_level, levels, max_deep_level);
+
     if (routes.size() != 0)
     {
         print_vector_of_vectors(routes);
@@ -76,18 +57,15 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
 
     call_count++;
     deep_level++;
-    //print_vector_of_vectors(route); 
 
     levels.push_back(deep_level - 1);//запись в массив уровня глубины 
 
     route.push_back(A);//запись в массив значения числа 
-    memory.push_back(A);
+
     print_string_old(call_count, deep_level - 1, route);
 
     if (A.x < 1 || A.y < 1 || A.x > wight || A.y > height)
     {
-        //levels.pop_back();
-        //route.pop_back();
         cout << "\nВышли за границы. \n";
         return 0;
     }
@@ -99,8 +77,6 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
 
     if (in_memory_old(route, A))
     {
-        //A.x -= T[j].x;
-        //A.y -= T[j].y;
         cout << "\nВернулись в одну из предыдущих точек. \n";
         return 0;
     }
@@ -116,7 +92,6 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
 
     for (int i = 0; i < T.size(); i++)
     {
-
         A.x += T[i].x;
         A.y += T[i].y;
 
@@ -130,11 +105,7 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
             route.pop_back();
 
             if (i != T.size() - 1)
-
                 cout << "Идем дальше:" << endl;
-            //route.pop_back();
-            //route.push_back(A);
-            //break;
 
         }
         else
@@ -143,7 +114,6 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
             if (i < T.size() - 1)
             {
                 cout << "Идем на предыдущий шаг: \n";
-                //cout << "Точка в которую вернулись:" << endl;
                 print_string_old(call_count, deep_level - 1, route);
                 cout << "\nВесь маршрут:" << endl;
                 print_route_old(route);
@@ -153,8 +123,6 @@ bool find_route_old(vector <vector <Point>>& routes, int wight, int height, vect
 
 
         }
-
-        //deep_level--;
         A.x -= T[i].x;
         A.y -= T[i].y;
 

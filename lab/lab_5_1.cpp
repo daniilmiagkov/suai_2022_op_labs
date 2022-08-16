@@ -12,7 +12,7 @@ string check_bool(int N);
 
 void print_sequence(vector<unsigned char> bytes);
 
-vector<unsigned char> fill_array_bytes(string s);
+vector<bool> fill_array_bits(string s);
 
 void lab_5_1()
 {
@@ -40,64 +40,41 @@ void lab_5_1()
         s = check_bool(N);
     }
 
-    s = "1110101111000000011111";
+    //s = "1110101111000000011111";
 
-    vector<unsigned char> bytes = fill_array_bytes(s);
-
+    cout << s << endl;
+    int index = 0;
     bool sum;
-    if (bytes[0] >> 7 == 0)
+
+    vector <bool> bits = fill_array_bits(s);
+
+    for (int i = 0; i < bits.size() - 1; i++)
     {
-        for (int i = 0; i < bytes.size(); i++)
-            bytes[i] = ~bytes[i];
-        unsigned char byte = bytes[0] << 1;
-        sum = (bytes[0] >> 7) ^ (byte >> 7);
-
-        print_sequence(bytes);
-        cout << endl << sum << endl;
-
-        bytes[0] = bytes[0] << 1;
-    
-        for (int i = 1; i < s.size(); i++)
+        if (bits[i + 1] == 1)
         {
-            byte = bytes[i / 8] << 1;
-            cout << (bytes[i / 8] >> 7) << "; ";
-            if (bytes[i / 8] >> 7 != 1 && byte >> 7 != 1)
-            {
-                sum = sum ^ (byte >> 7);
-                cout << sum;
-            }
-            cout << endl;
-            bytes[i / 8] = bytes[i / 8] << 1;
-
-        }    
-    }
-    else
-    {
-        print_sequence(bytes);
-
-        unsigned char byte = bytes[0] << 1;
-        sum = (bytes[0] >> 7) ^ (byte >> 7);
-
-        cout << endl << sum << endl;
-
-        bytes[0] = bytes[0] << 1;
-
-        for (int i = 1; i < s.size(); i++)
-        {
-            byte = bytes[i / 8] << 1;
-            cout << (bytes[i / 8] >> 7) << "; ";
-            if (bytes[i / 8] >> 7 != 0 && byte >> 7 != 0)
-            {
-                sum = sum ^ (byte >> 7);
-                cout << sum;
-            }
-            cout << endl;
-            bytes[i / 8] = bytes[i / 8] << 1;
-
+            index = i;
+            sum = (bits[i]) ^ (bits[i + 1]);
+            break;
         }
     }
+        
 
-    cout << sum;
+    cout << endl << "sum = " << sum << endl;
+
+    for (int i = index + 1; i < bits.size() - 1; i++)
+    {
+        cout << "i = " << i << "; bit1 = " << bits[i] << "; bit2 = " << bits[i + 1] << endl;
+        if ((bits[i] | bits[i + 1]) != 0)
+        {                                      
+            cout << "sum (" << sum << ") + " << "bit (" << bits[i + 1] << ") = ";
+
+            sum = sum ^ bits[i + 1];
+      
+            cout << sum << endl;
+        }               
+    }
+
+    cout << "sum = " << sum;
     
 }
 
@@ -156,26 +133,15 @@ void print_sequence(vector <unsigned char> bytes)
     }
 }
 
-vector<unsigned char> fill_array_bytes(string s)
+vector<bool> fill_array_bits(string s)
 {
-    vector<unsigned char> bytes;
-    int byteIndex; //индекс байта в векторе
+    vector<bool> bits;
+    string str;
     for (int i = 0; i < s.size(); i++) //идем до конца строки 
     {
-        if (i % 8 == 0) //если условие верно, добавляем в вектор нулевой символ
-            bytes.push_back('\0');
-        byteIndex = i / 8;
-        bytes[byteIndex] = (bytes[byteIndex] << 1) | (s[i] - '0');
-        //исходный байт равен нулевому символу 0000 0000 
-        //затем мы сдвигаем его на 1 влево 0000 0000
-        //затем складываем с элементом строки, из которой вычли '0'. '9' = 57 - '0' = 57 - 49 = 9
-        //получается 0000 0001
-        //ещё раз 
-        //исходный байт теперь равен 0000 0001
-        //сдвигаем 0000 0010. потом + 1
-        //получаем 0000 0011
+        str = s[i];
+        bits.push_back(str_to_number < bool> (str));
     }
-    if (s.size() % 8 != 0) //если последний байт заполнился не полностью, сдвигаем его на число, которого не хватает до полного заполнения. 8 - 6 = 2
-        bytes[byteIndex] = bytes[byteIndex] << (8 - s.size() % 8);
-    return bytes;
+    
+    return bits;
 }

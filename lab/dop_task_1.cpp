@@ -7,7 +7,6 @@
 #include "string"
 #include "vector"
 #include "Character.h"
-#include "Team.h"
 #include "Point.h"
 
 using std::string;
@@ -71,9 +70,9 @@ void dop_task_1()
         vector <Character> team;
         vector <vector < Character >> teams;
         find_array_team(0, team, teams, characters);
-        //print__all_teams(teams);
         find_winner_team(teams, enemy_team);
-        
+
+        print_all_teams(teams);
     }
     
 

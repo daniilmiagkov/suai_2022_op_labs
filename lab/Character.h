@@ -4,12 +4,12 @@
 class Character
 {
 public:
-    int health, time, interval;
+    int  time, interval, damage;
     unsigned short
-        number, damage, rival,
+        number, rival,
         time_fight = 0, disable = 1, die = 0;
     
-    double percent = 1;
+    double health, percent = 1;
     
     
     // health = здоровье персонажа

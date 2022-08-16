@@ -5,7 +5,6 @@
 #include <iomanip>
 #include <Windows.h> // библиотека
 #include "Character.h"
-#include "Team.h"
 
 using std::string;
 using std::cout;
@@ -56,17 +55,19 @@ void print_table(vector < Character > characters);
 
 void find_array_team(int last, vector < Character >& team, vector <vector < Character >>& teams, vector < Character >& characters);
 
-//void print_all_teams(vector <vector < Character >>& teams);
+void print_all_teams(vector <vector < Character >>& teams);
 
 void find_winner_team(vector <vector < Character >>& teams, vector < Character >& enemy_team);
 
 unsigned short find_max_in_vector(vector < Character > characters);
 
-void decrease_health(vector < Character >& team_2, vector < Character >& team_1);
+bool all_equal_to_zero(vector<Character>& team, string parametr);
+
+void decrease_health(vector < Character >& team_1, vector < Character >& team_2, vector < Character > team_const);
 
 void print_teams(vector < Character >& team_fantom, vector < Character >& team_enemy_fantom);
 
-bool Print_or_not_print();
+bool print_or_not_print();
 
 void die(Character& character);
 

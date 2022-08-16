@@ -98,9 +98,6 @@
     <ClInclude Include="Character.h">
       <Filter>dop_task_1</Filter>
     </ClInclude>
-    <ClInclude Include="Team.h">
-      <Filter>dop_task_1</Filter>
-    </ClInclude>
     <ClInclude Include="Skills_and_salaries.h">
       <Filter>labs\lab_4_2</Filter>
     </ClInclude>

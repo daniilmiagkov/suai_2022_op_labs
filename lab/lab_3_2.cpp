@@ -11,7 +11,7 @@ using namespace std; //подключение пространства имен 
 
 struct Values
 {
-    bool p_o_n_p_intermediate_values = 1,
+    bool p_o_n_p_intermediate_values = 0,
         print_or_not_print_find_array = 1,
         p_o_n_p_final_values = 1;
 
