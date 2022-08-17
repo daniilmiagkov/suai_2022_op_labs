@@ -17,3 +17,4 @@
 
 4.2 - поиск всех возможных сочетаний
 
+![Выбрать D__study_in_suai_programming_lab_x64_Debug_lab exe 2022-08-17 21-04-37](https://user-images.githubusercontent.com/59875675/185177661-2739a317-5742-466e-8eb5-18721404b995.gif)
