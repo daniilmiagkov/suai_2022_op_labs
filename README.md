@@ -11,6 +11,8 @@
 3.1 - рекурсия
 #### 3.2 - поиск маршрута от конкретной точки такого, что он обходит все точки используя, заданные ходы.
 Использовал там анимацию (в ней использовал перенос курсора для отображения кадров), чтобы показывать маршруты.
+
+![Выбрать_D__study_in_suai_programming_lab_x64_Debug_lab exe_2022-08-23_12-11-18_(1)](https://user-images.githubusercontent.com/59875675/186327651-cece6bda-742c-4cb6-b822-0c7aecedcf50.gif)
 ![Выбрать D_study_in_suai_programming_lab_x64_Debug_lab exe 2022-08-16 23-49-53 (online-video-cutter com) (1)](https://user-images.githubusercontent.com/59875675/184939067-5f7e99c1-4f73-4f03-b2f3-20803b38ce0e.gif)
 
 4.1 - решение матрица методом Гаусса
